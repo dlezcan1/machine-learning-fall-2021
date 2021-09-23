@@ -1,0 +1,11 @@
+\newcommand{\CI}{\mathrel{\perp\mkern-10mu\perp}}
+\newcommand{\given}{~\vert~}
+\newcommand{\CondInd}[3]{(#1 \CI #2 \given #3)}
+% \emph{Assigned: Dimitri}
+% For $\CondInd{X_1}{X_3, \dots X_k}{X_2} \implies \CondInd{X_1}{X_4, \dots, X_k}{X_2, X_3}$ and we have that $(X_2 \CI X_4, \dots, X_k \given X_1, X_3)$. By intersection axiom, we have that $(X_1, X_2 \CI X_4, \dots, X_k \given X_3).$ 
+Take $j \in [2, k-1]$ and suppose for $\forall i < j$ that $(X_1, \dots, X_{i-1} \CI X_{i+1}, \dots, X_k \given X_i)$.  Then it holds that $ \CondInd{X_{j-1}}{X\backslash\{X_{j-2}, X_j\}}{X_{j-2}, X_j} \implies \CondInd{X_{j-1}}{X_{j+1},\dots, X_k}{X_1, \dots, X_{j-2}, X_j}$, $\CondInd{X_1, \dots, X_{j-2}}{X_{j}, \dots, X_k}{X_{j-1}} \implies \CondInd{X_1, \dots, X_{j-2}}{X_{j+1}, \dots, X_k}{X_{j-1}, X_{j}}$. Therefore we have that  and $\CondInd{X_1, \dots, X_{j-1}}{X_{j+1}, \dots, X_k}{X_j}$ by the intersection axiom. 
+Using the above and the chain rule, we can characterize the joint distribution $p(x_1, \dots, x_k)$ by
+$
+    p(x_1, \dots, x_k) = \prod_{i=1}^k p(x_i | x_1, \dots, x_{i-1}) = \prod_{i=1}^k p(x_i | x_{i-1})
+$
+Therefore $\mathcal{L}_{[D]}(\vec{p}) = \prod_{j=1}^np_1(1)^{x_{1,j}}(1-p_1(1))^{(1-x_{1,j})}\prod_{i=2}^k p_i(1|1)^{x_{i,j} x_{i-1,j}} p_i(1|0)^{x_{i,j} (1-x_{i-1,j})}(1-p_i(1|1))^{(1-x_{i,j})x_{i-1,j}}(1-p_i(1|0))^{(1-x_{i,j})(1-x_{i-1,j})}$ where $p_i(1 \given 1) = p(X_i = 1 \given X_{i-1} = 1),\ p_i(1 \given 0) = p(X_i = 1 \given X_{i-1} = 0)$ for $i \in [2,k]$ and $p_1(1)= p(X_1=1)$ are the parameters of the likelihood.

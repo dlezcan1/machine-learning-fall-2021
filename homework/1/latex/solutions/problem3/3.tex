@@ -1,0 +1,10 @@
+% \emph{Assigned: Dimitri}
+\newcommand{\CI}{\mathrel{\perp\mkern-10mu\perp}}
+\newcommand{\given}{~\vert~}
+
+Given the assumption that $cough \CI fever \given pneumonia$, we have that
+\begin{align*}
+    p(f,c,p) &= p(f,c \given p) p(p)\\
+             &= p(f \given p) p(c \given p) p(p) ~\because ~(cough \CI fever \given pneumonia)
+\end{align*}
+Therefore, we only need 3 parameters $p(p), p(c \given p)$, and $p(f\given p)$ to fully specify the joint distribution $p(fever,cough,pneumonia)$.

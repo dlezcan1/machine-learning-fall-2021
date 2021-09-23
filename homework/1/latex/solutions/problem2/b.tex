@@ -1,0 +1,10 @@
+% \emph{Assigned: Dimitri}
+\begin{align*}
+    \mathcal{L}_{[D]}(\vec{y}|\mathbf{x},w) &= \sum_{i=1}^n \ln p(y_i | x_i, \omega) = \sum_{i=1}^n \ln P(y_i - \omega^T x_i)\\
+        &= \sum_{i=1}^n \left(-|y_i - \omega^T x_i| - \ln 2\right) = -\sum_{i=1}^n \left(|y_i - \omega^T x_i|\right) - n \ln 2
+\end{align*}
+Since we have that $\argmax \mathcal{L}_{[D]}$ is independent of constants, we have $\argmax \mathcal{L}_{[D]} = \argmax \mathcal{L}_{[D]} + n\ln 2 = \argmin -(\mathcal{L}_{[D]} + n\ln 2)$. Thus, we can use a loss function of
+\begin{equation*}
+    \mathcal{L}(\vec{y}, \vec{\omega}) = \sum_{i=1}^n |y_i - \omega^T x_i|
+\end{equation*}
+where minimizing the above is equivalent to maximizing the conditional log-likelihood.

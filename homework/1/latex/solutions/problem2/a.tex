@@ -1,0 +1,10 @@
+\begin{align*}
+    \mathcal{L}_{[D]}(\mathbf{y}|\mathbf{x},w)&=\sum_{i=1}^n\ln p(y_i|x_i,w) = \sum_{i=1}^n\ln (\frac{1}{\sqrt{2\pi}}\exp\{\frac{-1}{2}(x_i-w^Tx_i)^2\}) \\
+    &=\sum_{i=1}^n(\ln\frac{1}{\sqrt{2\pi}}-\frac{1}{2}(y_i-w^Tx_i)^2) = -\frac{1}{2}\sum_{i=1}^n(y_i-w^Tx_i)^2+n\ln\frac{1}{\sqrt{2\pi}}
+\end{align*}
+The constant term $n\ln\frac{1}{\sqrt{2\pi}}$ does not affect the minimization, so
+\begin{align*}
+    argmax\;-\frac{1}{2}\sum_{i=1}^n(y_i-w^Tx_i)^2+n\ln\frac{1}{\sqrt{2\pi}} &= argmax\;-\frac{1}{2}\sum_{i=1}^n(y_i-w^Tx_i)^2 \\
+    &= argmin \frac{1}{2}\sum_{i=1}^n(y_i-w^Tx_i)^2
+\end{align*}
+We can minimize the least square loss function, $\mathcal{L}(\mathbf{y},w)=\sum_{i=1}^n(y_i-w^Tx_i)^2$, to maximize the conditional log-likelihood.

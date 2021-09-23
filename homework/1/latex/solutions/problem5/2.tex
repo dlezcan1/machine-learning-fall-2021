@@ -1,0 +1,13 @@
+\newcommand{\CI}{\mathrel{\perp\mkern-10mu\perp}}
+\newcommand{\given}{~\vert~}
+\newcommand{\CondInd}[3]{(#1 \CI #2 \given #3)}
+% \emph{Assigned: Dimitri}
+We have the following $\forall i \in [2, k-1]$ from the assumptions:
+\begin{align*}
+    p(x_1 \given x_2, \dots, x_k) &= p(x_1 \given x_2)\\\
+    p(x_k \given x_1, \dots, x_{k-1}) &= p(x_k \given x_{k-1}) \\
+    p(x_i \given \vec{x}\backslash\{x_i\}) &= p(x_i \given x_{i-1}, x_{i+1})
+\end{align*}
+Using Problem 5.3, we have $p(x_1, \dots, x_k) = p(x_1) \displaystyle\prod_{i=2}^n p(x_i | x_{i-1})$. There is 1 parameter for $p(x_1)$ and 2 parameters per $i$ for $p(x_i | x_{i-1})$. Therefore the number of parameters is $1 + 2(k-1) = \mathbf{2k+1}$
+% Characterizing all of the conditional probabilities, we see that for $x_i$, we have 2 binary options for $i = 1, k$ and 4 binary options for $i \in [2, k-1]$. So we have that the smallest number of parameters to characterize the Gibbs sampler $p(x_1, \dots, x_k)$ is $2(2) + 4(k-2) = \mathbf{4(k-1)}$.
+

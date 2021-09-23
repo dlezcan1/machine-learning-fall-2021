@@ -1,0 +1,7 @@
+\begin{align*}
+    p(\lambda |x) &\propto p(x|\lambda)p(\lambda) \\
+    &\propto \lambda^ne^{-\lambda \sum_i x_i} \lambda^{\alpha -1}e^{-\beta \lambda} \\
+    &\propto e^{-\lambda(\sum_ix_i-\beta)}\lambda^{n+\alpha-1} \\
+    p(\lambda |x) &\propto Gamma(\alpha^*, \beta^*), where \; \alpha^* = \alpha +n \; and \; \beta^* =\sum_ix_i+\beta
+\end{align*}
+
