@@ -104,7 +104,7 @@ def train(args):
 
     # build the appropriate model
     if args.algorithm == 'l2':
-        model = models.MCLogisticWithL1(nfeatures=X.shape[1], nclasses=nclasses)
+        model = models.MCLogisticWithL2(nfeatures=X.shape[1], nclasses=nclasses)
     elif args.algorithm == 'logistic':
         model = models.MCLogistic(nfeatures=X.shape[1], nclasses=nclasses)
     else:

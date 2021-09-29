@@ -84,7 +84,7 @@ class MCLogistic(MCModel):
         # TODO: Implement this!
         predictions = np.zeros((X.shape[0], 1), dtype=np.int)
 
-        return predictions
+        return predictions;
 
 class MCLogisticWithL2(MCModel):
 
@@ -105,4 +105,4 @@ class MCLogisticWithL2(MCModel):
         # TODO: Implement this!
         predictions = np.zeros((X.shape[0], 1), dtype=np.int)
 
-        return predictions
+        return predictions;

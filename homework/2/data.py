@@ -52,5 +52,6 @@ def load_data(filename):
 
     X = csr_matrix((X_nonzero_values, (X_nonzero_rows, X_nonzero_cols)), dtype=np.float)
     y = np.array(y, dtype=np.int)
+    num_classes = np.unique(y)
 
-    return X, y
+    return X, y, num_classes
