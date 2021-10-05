@@ -50,7 +50,7 @@ def load_data(filename):
                     X_nonzero_cols.append(feature_index)
                     X_nonzero_values.append(value)
 
-    X = csr_matrix((X_nonzero_values, (X_nonzero_rows, X_nonzero_cols)), dtype=np.float)
+    X = csr_matrix((X_nonzero_values, (X_nonzero_rows, X_nonzero_cols)), dtype=np.float)[:, 10:30]
     y = np.array(y, dtype=np.int)
     num_classes = np.unique(y)
 

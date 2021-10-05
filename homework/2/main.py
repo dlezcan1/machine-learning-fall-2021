@@ -90,8 +90,6 @@ def test(args):
 
     # predict labels for dataset
     preds = model.predict(X)
-    # re-align our preds with the 1-based labels in the data
-    preds = [pred + 1 for pred in preds]
     # output model predictions
     np.savetxt(args.predictions_file, preds, fmt='%d')
 

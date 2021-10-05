@@ -69,40 +69,39 @@ class MCLogistic(MCModel):
 
     def __init__(self, *, nfeatures, nclasses):
         super().__init__(nfeatures=nfeatures, nclasses=nclasses)
-        # TODO: Implement this!
-        # Define the dimensions of W
+        # TODO: Define the dimensions of W (logistic)
         # self.W = Undefined
 
 
     def fit(self, *, X, y, A, tol):
-        # TODO: Implement this!
+        # TODO: Fit function (logistic)
         raise NotImplementedError()
 
 
     def predict(self, X):
         X = self._fix_test_feats(X)
-        # TODO: Implement this!
+        # TODO: predict function (logistic)
         predictions = np.zeros((X.shape[0], 1), dtype=np.int)
 
-        return predictions;
+        return predictions
+
 
 class MCLogisticWithL2(MCModel):
 
     def __init__(self, *, nfeatures, nclasses):
         super().__init__(nfeatures=nfeatures, nclasses=nclasses)
-        # TODO: Implement this!
-        # Define the dimensions of W
+        # TODO: Define the dimensions of W (L2)
         # self.W = Undefined
 
 
     def fit(self, *, X, y, A, tol):
-        # TODO: Implement this!
+        # TODO: fit function (L2)
         raise NotImplementedError()
 
 
     def predict(self, X):
         X = self._fix_test_feats(X)
-        # TODO: Implement this!
+        # TODO: predict function (L2)
         predictions = np.zeros((X.shape[0], 1), dtype=np.int)
 
-        return predictions;
+        return predictions
