@@ -115,8 +115,8 @@ class MCLogistic( MCModel ):
             self.W += update.reshape( -1, 1 )  # update the parameters
 
             # check for update size small enough to break
-            update_norm = np.linalg.norm( update )
-            if update_norm <= tol:
+            convergence_check = np.abs(grad_h).max()
+            if convergence_check <= tol:
                 break
 
             # if
@@ -197,8 +197,8 @@ class MCLogisticWithL2( MCModel ):
             self.W += update.reshape( -1, 1 )  # update the parameters
 
             # check for update size small enough to break
-            update_norm = np.linalg.norm( update )
-            if update_norm <= tol:
+            convergence_check = np.abs(grad_h).max()
+            if convergence_check <= tol:
                 break
 
             # if
