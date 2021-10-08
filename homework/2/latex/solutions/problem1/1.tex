@@ -1,0 +1,13 @@
+\begin{align*}
+    J(\beta) &= (\mathbf{y}-\mathbf{X}\beta)^T(\mathbf{y}-\mathbf{X}\beta)+\lambda\sum_i\beta_i^2 \\
+    &= (\mathbf{y}^T-\beta^T\mathbf{X}^T)(\mathbf{y}-\mathbf{X}\beta)+\lambda\sum_i\beta_i^2 \\
+    &= \mathbf{y}^T\mathbf{y}-\mathbf{y}^T\mathbf{X}\beta - \beta^T\mathbf{X}^T\mathbf{y}^T+\beta^T\mathbf{X}^T\mathbf{X}\beta+\lambda\sum_i\beta_i^2 \\
+    &= \mathbf{y}^T\mathbf{y}-2\mathbf{y}^T\mathbf{X}\beta+\beta^T\mathbf{X}^T\mathbf{X}\beta+\lambda\sum_i\beta_i^2
+\end{align*}
+To minimize $J(\beta)$, we set $\frac{\partial J(\beta)}{\partial \beta} = 0$
+\begin{align*}
+    \frac{\partial J(\beta)}{\partial \beta} &=-2\mathbf{X}^T\mathbf{y} + 2\mathbf{X}^T\mathbf{X}\beta + 2\lambda \beta = 0 \\
+    \mathbf{X}^T\mathbf{X}\beta + \lambda\mathbf{I}\beta &= \mathbf{X}^T\mathbf{y} \\
+    (\mathbf{X}^T\mathbf{X} + \lambda\mathbf{I})\beta &= \mathbf{X}^T\mathbf{y} \\
+    \beta &= (\mathbf{X}^T\mathbf{X} + \lambda\mathbf{I})^{-1}\mathbf{X}^T\mathbf{y}
+\end{align*}

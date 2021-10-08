@@ -1,0 +1,31 @@
+\input{commands/probability}
+\newcommand{\fh}[1]{\hat{f}^{#1}}
+
+% \begin{align*}
+%     E[(y_0-\hat{f}^{whole}(x_0])^2] &= Var_{p([D])}[\hat{f}^{whole}_{[D]}(x_0)]+\left(E_{(p[D])}[y_0-\hat{f}_{[D]}(x_0)]\right)^2 \\
+%     &= Var_{p([D])}[x_0^T\beta^{whole}]+\left(E_{p([D])}[y_0-x_0^T\beta^{whole}]\right)^2
+% \end{align*}
+
+
+% \begin{align*}
+%     \E_{p([D])}\left[(y_0 - \hat{f}^{split}(x_0))^2 \right] &= \Var_{p([D])}(\hat{f}^{split}(x_0)) + \left(\E_{p([D])}[y_0 - \hat{f}^{split}(x_0)] \right)^2\\
+%     &= \frac{1}{4}\left(\Var_{p([D]_1)}(x_0^T \beta^{(1)}) + \Var_{p([D]_2)}(x_0^T \beta^{(2)})\right) \\
+%     &+ \frac{1}{4} \left(\E_{p([D]_1)}[ y_0 - x_0^T \beta^{(1)}] + \E_{p([D]_2)}[y_0 - x_0^T \beta^{(2)}] \right)^2 \\ &\because [D]_1 \indep [D]_2 
+% \end{align*}
+
+% \emph{Try \#2}
+
+$\hat{f}^{whole}(x_0) = x_0^T\beta^{whole} + \epsilon$
+\begin{align*}
+    \E[(y_0 - \fh{whole}(x_0))^2] &= \E[(y_0-(x_0^T\beta^{whole} + \epsilon))^2]\\
+        &= \E[y_0^2] + \E[(x_0^T\beta^{whole})^2] + E[\epsilon^2] - 2\E[y_0x_0^T\beta^{whole}] \\&- 2\E[y_0\epsilon] - 2\E[x_0^T\beta^{whole}\epsilon]\\
+        &= \Var[x_0^T\beta^{whole} + \epsilon] + \E[y_0^2] + \E[(x_0^T\beta^{whole})]^2 + E[\epsilon]^2 \\&- 2\E[y_0x_0^T\beta^{whole}] - 2\E[y_0\epsilon] - 2\E[x_0^T\beta^{whole}\epsilon]\\
+        &= \Var[x_0^T\beta^{whole}] + \Var[\epsilon] +  \left(\E[y_0-(x_0^T\beta^{whole} + \epsilon)]\right)^2
+\end{align*}
+
+Now for $\fh{split}$
+\begin{align*}
+    \E[(y_0 - \fh{split}(x_0))^2] &= \E[(y_0 - \frac{1}{2}(x_0^T\beta^{(1)} + \epsilon^{(1)}+ x_0^T\beta^{(2)}+ \epsilon^{(2)}))^2] \\
+    &= \frac{1}{4}\left(\Var[x_0^T\beta^{(1)}] + \Var[x_0^T\beta^{(2)}]\right) + \frac{1}{2}\Var[\epsilon] \\&+ \left(\E[y_0 - \frac{1}{2}(x_0^T\beta^{(1)} + \epsilon^{(1)}+ x_0^T\beta^{(2)}+ \epsilon^{(2)})]\right)^2 \\
+    &= \frac{1}{4}\left(\Var[x_0^T\beta^{(1)}] + \Var[x_0^T\beta^{(2)}]\right) + \frac{1}{2}\Var[\epsilon] \\&+ \frac{1}{4}\left(\E[y_0 - (x_0^T\beta^{(1)} + \epsilon^{(1)})]^2 + \E[y_0 - (x_0^T\beta^{(2)} + \epsilon^{(2)})]^2\right) \\
+\end{align*}

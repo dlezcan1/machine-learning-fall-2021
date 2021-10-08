@@ -1,0 +1,14 @@
+\begin{align*}
+    \Var[\hat{f}^{whole}(x_0)] &= \Var[x_0^T\beta^{whole}] + \Var[\epsilon]\\
+    \Var[\hat{f}^{split}(x_0)] &= \frac{1}{4}\left(\Var[x_0^T\beta^{(1)}] + \Var[x_0^T\beta^{(2)}]\right) + \frac{1}{2}\Var[\epsilon]
+\end{align*}
+If $\beta^{whole} = \beta^{(1)} = \beta^{(2)} = \beta$, then we can relate the two variances.
+% Alternatively, we substitute $Var[\epsilon]$ and keep the betas separate. TA did allude to setting betas equal though.
+\begin{align*}
+    \Var[x_0^T\beta] &= \Var[\hat{f}^{whole}(x_0)] - \Var[\epsilon] \\
+    \Var[\hat{f}^{split}(x_0)] &= \frac{1}{2}\left(\Var[\hat{f}^{whole}(x_0)] - \Var[\epsilon]\right) + \frac{1}{2}\Var[\epsilon]\\
+    &= \frac{1}{2}\Var[\hat{f}^{whole}(x_0)]
+\end{align*}
+
+% Because taking the expectation of all the different half-splits is symmetrical (Can switch any $[D]_1$ with $[D]_2$). If $[D]$ is balanced and/or symmetrical, this would imply that the distribution of $[D]_{split}$ would be similar to $[D]$, therefore $\Var_{[D]}(x_0^T \beta^{whole}) = \Var_{[D]_{split}}(x_0^T \beta^{split})$, $\Var_{[D]}(\hat{f}^{whole}(x_0)) = 2 \Var_{[D]}(\hat{f}^{split}(x_0))$
+% However, if imbalanced, $\Var_{[D]}(\hat{f}^{split}(x_0))$ will be greater than the unsplit learner which would increase the variance of the split learner.

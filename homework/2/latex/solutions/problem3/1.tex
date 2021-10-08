@@ -1,0 +1,19 @@
+\input{commands/probability}
+% \emph{Assigned: Dimitri }
+
+$\prod_i p(X_i\given Y) = p(\mathbf{X} \given Y) \because \condindep{X_i}{X_j}{Y} ~\forall i \neq j$. Thus, $p(Y \given \mathbf{X}) = \frac{p(Y) p(\mathbf{X}\given Y)}{\sum_Y p(Y) p(\mathbf{X}\given Y)}$. Performing some algebra
+$$
+p(Y=1 | \mathbf{X}) = \frac{p(Y=1) p(\mathbf{X} | Y=1)}{\sum_Y p(Y) p(\mathbf{X}| Y)} = \frac{1}{1 + \frac{p(Y=0)p(\mathbf{X}|Y=0)}{p(Y=1)p(\mathbf{X}| Y=1)}} = \frac{1}{1 + \exp{\left[\log\left(\frac{p(Y=0)p(\mathbf{X}|Y=0)}{p(Y=1)p(\mathbf{X}| Y=1)}\right)\right]}} 
+$$
+
+Using $X_i \given Y \sim \mathcal{N}(\mu_{i,y},\sigma_i^2)$ and the above, we have that
+\begin{align*}
+    \log\left(\frac{p(\mathbf{X} \given Y=0)}{p(\mathbf{X} \given Y=1)}\right)
+    % &= \log(p(\mathbf{X} \given Y=0)) - \log(p(\mathbf{X} \given Y=1))\\
+    &= \sum_i -\frac{1}{2 \sigma_i^2} \left((x_i - \mu_{i,0})^2 - (x_i - \mu_{i,1})^2\right)\\
+    &= -\sum_i \frac{\mu_{i,1} - \mu_{i,0}}{\sigma_i^2} x_i + \frac{\mu_{i,0}^2 - \mu_{i,1}^2}{2\sigma_i^2}
+\end{align*}
+Define $\beta_{int} = \log\left(p(\mathbf{X}\given Y=1)/p(\mathbf{X} \given Y=0)\right) + \left(\mu_{i,0}^2 - \mu_{i,1}^2\right)/2\sigma_i^2$, and $\beta_i = \left(\mu_{i,1} - \mu_{i,0}\right)/\sigma_i^2$. Therefore, we can rewrite $p(Y = 1 \given \mathbf{X})$ in the logistic regression form:
+\begin{equation*}
+    p(Y = 1 \given \mathbf{X}) = \frac{1}{1 + \exp\left(-\beta_{int} - \displaystyle\sum_{i=1}\beta_i x_i\right)}
+\end{equation*}

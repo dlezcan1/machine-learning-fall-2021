@@ -1,0 +1,12 @@
+\begin{align*}
+    posterior &= likelihood \times prior \\
+    &= \frac{1}{2\pi^{k/2}\sqrt{\sigma^2}}exp\{\frac{-1}{2}(\mathbf{y}-\mathbf{X}\beta)^T\sigma^2(\mathbf{y}-\mathbf{X}\beta)\} \times \frac{1}{2\pi^{k/2}\sqrt{\tau}}exp\{\frac{-1}{2}\beta^T\tau\beta\} \\
+    &= \frac{1}{4\pi^k\sigma\sqrt{\tau}}exp\{\frac{-\sigma^2}{2}(\mathbf{y}-\mathbf{X}\beta)^T(\mathbf{y}-\mathbf{X}\beta) - \frac{\tau}{2}\beta^T\beta\} \\
+\end{align*}
+Since exp(.) is convex, we know that $argmax\; posterior = argmax\; \ln\{posterior\}$
+\begin{align*}
+    argmax\; \ln\{posterior\} &= argmax\; \frac{-\sigma^2}{2}(\mathbf{y}-\mathbf{X}\beta)^T(\mathbf{y}-\mathbf{X}\beta) - \frac{\tau}{2}\beta^T\beta \\
+    &= argmin\; (\mathbf{y}-\mathbf{X}\beta)^T(\mathbf{y}-\mathbf{X}\beta) + \frac{\tau}{\sigma^2}\beta^T\beta \\
+\end{align*}
+
+This is the same form as equation (1) and minimizes in the same fashion. Here, $\lambda = \frac{\tau}{\sigma^2}$.
