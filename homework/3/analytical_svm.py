@@ -40,7 +40,7 @@ w = np.array([[0, 1, 1/2],
               [-1, -1, 0],
               [1, -1, 1]
              ])
-support_vectors = [[0, 1, 3,4, 6,7], [0, 4], [1, 6]]
+support_vectors = [[0, 2, 3,4, 6,7], [0, 4], [2, 6]]
 
 # fig, ax = plt.subplots()
 #

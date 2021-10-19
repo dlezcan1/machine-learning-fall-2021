@@ -2,6 +2,7 @@
 
 import torch
 import torch.nn.functional as F
+import torch.nn as nn #added
 
 class FeedForward(torch.nn.Module):
     def __init__(self, hidden_dim):
@@ -10,11 +11,18 @@ class FeedForward(torch.nn.Module):
         assign them as member variables.
         """
         super(FeedForward, self).__init__()
+        self.fc1 = nn.Linear(784, hidden_dim) #784 pixels)
+        self.fc2 = nn.Linear(hidden_dim, 10) # Logits in vectors of length 10
 
     def forward(self, x):
         """
         Compute the forward pass of our model, which outputs logits.
         """
+
+        x = self.fc1(x)
+        x = F.relu(x)
+        x = self.fc2(x)
+
         return x
 
 class SimpleConvNN(torch.nn.Module):

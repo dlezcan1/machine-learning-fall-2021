@@ -10,7 +10,6 @@ import numpy as np
 from data import load
 from models import FeedForward, SimpleConvNN, BestNN
 
-
 def get_args():
     """ Define our command line arguments. """
     p = ap.ArgumentParser()
@@ -26,8 +25,8 @@ def get_args():
 
     # hyperparameters
     p.add_argument("--model", type=str, default="simple-cnn")
-    p.add_argument("--train-steps", type=int, default=3500) #orig default = 500, #best = 5000
-    p.add_argument("--batch-size", type=int, default=100) #orig default = 40, #best = 100
+    p.add_argument("--train-steps", type=int, default=3500) #orig default = 3500, #best = 5000
+    p.add_argument("--batch-size", type=int, default=100) #orig default = 100, #best = 100
     p.add_argument("--learning-rate", type=float, default=0.001) #orig default = 0.001, #best = 0.001
 
     # simple-ff hparams
@@ -54,16 +53,10 @@ def get_args():
 
 def train(args):
     # Set Random Seed for Consistency Across Runs
-    #RAND_SEED = 42
-    #torch.manual_seed(RAND_SEED)
-    #np.random.seed(RAND_SEED)
-    #random.seed(42)
-
-    # setup metric logging. It's important to log your loss!!
-    log_f = open(args.log_file, 'w')
-    fieldnames = ['step', 'train_loss', 'train_acc', 'dev_loss', 'dev_acc']
-    logger = csv.DictWriter(log_f, fieldnames)
-    logger.writeheader()
+    RAND_SEED = 42
+    torch.manual_seed(RAND_SEED)
+    np.random.seed(RAND_SEED)
+    random.seed(42)
 
     # load data
     train_data, train_labels = load(args.data_dir, split="train")
@@ -91,73 +84,165 @@ def train(args):
     else:
         raise Exception("Unknown model type passed in!")
 
-    optimizer = torch.optim.Adam(model.parameters(), lr=args.learning_rate)
+    if torch.cuda.is_available():
+        print("CUDA!!!")
+        model = model.cuda()
 
-    # TODO: You can change this loop as you need to, to optimize your training!
-    # for example, if you wanted to implement early stopping to make sure you
-    # don't overfit your model, you would do so in this loop.
-    best_model = None
-    best_dev_acc = 0.0
-    for step in range(args.train_steps):
-        # run the model and backprop for train steps
-        i = np.random.choice(train_data.shape[0], size=args.batch_size, replace=False)
-        x = torch.from_numpy(train_data[i].astype(np.float32))
-        y = torch.from_numpy(train_labels[i].astype(np.int))
+    # if
 
-        # Forward pass: Get logits for x
-        logits = model(x)
-        # Compute loss
-        loss = F.cross_entropy(logits, y)
-        # Zero gradients, perform a backward pass, and update the weights.
-        optimizer.zero_grad()
-        loss.backward()
-        optimizer.step()
+#Starting code
+    if False:
+        # setup metric logging. It's important to log your loss!!
+        log_f = open(args.log_file, 'w')
+        fieldnames = ['step', 'train_loss', 'train_acc', 'dev_loss', 'dev_acc']
+        logger = csv.DictWriter(log_f, fieldnames)
+        logger.writeheader()
 
-        # every 100 steps, log metrics
-        if step % 100 == 0:
-            train_acc, train_loss = approx_train_acc_and_loss(model,
-                                                              train_data,
-                                                              train_labels)
-            dev_acc, dev_loss = dev_acc_and_loss(model, dev_data, dev_labels)
+        optimizer = torch.optim.Adam(model.parameters(), lr=args.learning_rate)
 
-            if dev_acc > best_dev_acc:
-                best_model = model
-                best_dev_acc = dev_acc
+        # TODO: You can change this loop as you need to, to optimize your training!
+        # for example, if you wanted to implement early stopping to make sure you
+        # don't overfit your model, you would do so in this loop.
+        best_model = None
+        best_dev_acc = 0.0
+        for step in range(args.train_steps):
+            # run the model and backprop for train steps
+            i = np.random.choice(train_data.shape[0], size=args.batch_size, replace=False)
+            x = torch.from_numpy(train_data[i].astype(np.float32))
+            y = torch.from_numpy(train_labels[i].astype(np.int))
 
-            step_metrics = {
-                'step': step, 
-                'train_loss': loss.item(), 
-                'train_acc': train_acc,
-                'dev_loss': dev_loss,
-                'dev_acc': dev_acc
-            }
+            # Forward pass: Get logits for x
+            logits = model(x)
+            # Compute loss
+            loss = F.cross_entropy(logits, y)
+            # Zero gradients, perform a backward pass, and update the weights.
+            optimizer.zero_grad()
+            loss.backward()
+            optimizer.step()
 
-            print(f'On step {step}: Train loss {train_loss} | Dev acc is {dev_acc}')
-            logger.writerow(step_metrics)
+            # every 100 steps, log metrics
+            if step % 100 == 0:
+                train_acc, train_loss = approx_train_acc_and_loss(model,
+                                                                  train_data,
+                                                                  train_labels)
+                dev_acc, dev_loss = dev_acc_and_loss(model, dev_data, dev_labels)
 
-    # close the log file
-    log_f.close()
-    # save model
-    print(f'Done training. Saving model at {args.model_save}')
-    torch.save(best_model, args.model_save)
+                if dev_acc > best_dev_acc:
+                    best_model = model
+                    best_dev_acc = dev_acc
 
+                step_metrics = {
+                    'step': step,
+                    'train_loss': loss.item(),
+                    'train_acc': train_acc,
+                    'dev_loss': dev_loss,
+                    'dev_acc': dev_acc
+                }
+
+                print(f'On step {step}: Train loss {train_loss} | Dev acc is {dev_acc}')
+                logger.writerow(step_metrics)
+
+        # close the log file
+        log_f.close()
+        # save model
+        print(f'Done training. Saving model at {args.model_save}')
+        torch.save(best_model, args.model_save)
+
+
+    # Feed Forward Optimization
+    if True:
+    #FF learning rates
+        lrates = [0.000001,0.00001,0.0001,0.001,0.01,0.1,1]
+        for lrnum in lrates:
+            # setup metric logging. It's important to log your loss!!
+            log_f = open(args.log_file[:-9]+str(lrnum)+args.log_file[-9:], 'w')
+            fieldnames = ['step', 'train_loss', 'train_acc', 'dev_loss', 'dev_acc']
+            logger = csv.DictWriter(log_f, fieldnames)
+            logger.writeheader()
+
+            optimizer = torch.optim.Adam(model.parameters(), lr=lrnum)
+
+            # TODO: You can change this loop as you need to, to optimize your training!
+            # for example, if you wanted to implement early stopping to make sure you
+            # don't overfit your model, you would do so in this loop.
+            best_model = None
+            best_dev_acc = 0.0
+            for step in range(args.train_steps):
+                # run the model and backprop for train steps
+                i = np.random.choice(train_data.shape[0], size=args.batch_size, replace=False)
+                x = torch.from_numpy(train_data[i].astype(np.float32))
+                y = torch.from_numpy(train_labels[i].astype(np.int)).type(torch.long)
+
+                if torch.cuda.is_available():
+                    x = x.cuda()
+                    y = y.cuda()
+
+                # Forward pass: Get logits for x
+                logits = model(x)
+                # Compute loss
+                loss = F.cross_entropy(logits, y)
+                # Zero gradients, perform a backward pass, and update the weights.
+                optimizer.zero_grad()
+                loss.backward()
+                optimizer.step()
+
+                # every 100 steps, log metrics
+                if step % 100 == 0:
+                    train_acc, train_loss = approx_train_acc_and_loss(model,
+                                                                      train_data,
+                                                                      train_labels)
+                    dev_acc, dev_loss = dev_acc_and_loss(model, dev_data, dev_labels)
+
+                    if dev_acc > best_dev_acc:
+                        best_model = model
+                        best_dev_acc = dev_acc
+
+                    step_metrics = {
+                        'step': step,
+                        'train_loss': loss.item(),
+                        'train_acc': train_acc,
+                        'dev_loss': dev_loss,
+                        'dev_acc': dev_acc
+                    }
+
+                    print(f'On step {step}: Train loss {train_loss} | Dev acc is {dev_acc}')
+                    logger.writerow(step_metrics)
+
+            # close the log file
+            log_f.close()
+            # save model
+            print(f'Done training. Saving model at {args.model_save+str(lrnum)}')
+            torch.save(best_model, args.model_save[:-6]+str(lrnum)+args.model_save[-6:])
+
+    
 
 def approx_train_acc_and_loss(model, train_data, train_labels):
     idxs = np.random.choice(len(train_data), 4000, replace=False)
     x = torch.from_numpy(train_data[idxs].astype(np.float32))
-    y = torch.from_numpy(train_labels[idxs].astype(np.int))
+    y = torch.from_numpy(train_labels[idxs].astype(np.int)).type(torch.long)
+    if torch.cuda.is_available():
+        x = x.cuda()
+        y = y.cuda()
     logits = model(x)
     loss = F.cross_entropy(logits, y)
     y_pred = torch.max(logits, 1)[1]
+    if torch.cuda.is_available():
+        y_pred = y_pred.cpu()
     return accuracy(train_labels[idxs], y_pred.numpy()), loss.item()
 
 
 def dev_acc_and_loss(model, dev_data, dev_labels):
     x = torch.from_numpy(dev_data.astype(np.float32))
-    y = torch.from_numpy(dev_labels.astype(np.int))
+    y = torch.from_numpy(dev_labels.astype(np.int)).type(torch.long)
+    if torch.cuda.is_available():
+        x = x.cuda()
+        y = y.cuda()
     logits = model(x)
     loss = F.cross_entropy(logits, y)
     y_pred = torch.max(logits, 1)[1]
+    if torch.cuda.is_available():
+        y_pred = y_pred.cpu()
+
     return accuracy(dev_labels, y_pred.numpy()), loss.item()
 
 
