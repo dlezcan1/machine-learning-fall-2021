@@ -52,10 +52,10 @@ class BestNN( torch.nn.Module ):
     def __init__( self, n1_channels, n1_kernel, n2_channels, n2_kernel, pool1,
                   n3_channels, n3_kernel, n4_channels, n4_kernel, pool2, linear_features ):
         super( BestNN, self ).__init__()
-        self.cv1 = nn.Conv2d( 1, n1_channels, kernel_size=n1_kernel, padding='same' )
-        self.cv2 = nn.Conv2d( n1_channels, n2_channels, kernel_size=n2_kernel, padding='same' )
-        self.cv3 = nn.Conv2d( n2_channels, n3_channels, kernel_size=n3_kernel, padding='same' )
-        self.cv4 = nn.Conv2d( n3_channels, n4_channels, kernel_size=n4_kernel, padding='same' )
+        self.cv1 = nn.Conv2d( 1, n1_channels, kernel_size=n1_kernel, padding=n1_kernel//2 )
+        self.cv2 = nn.Conv2d( n1_channels, n2_channels, kernel_size=n2_kernel, padding=n2_kernel//2 )
+        self.cv3 = nn.Conv2d( n2_channels, n3_channels, kernel_size=n3_kernel, padding=n3_kernel//2 )
+        self.cv4 = nn.Conv2d( n3_channels, n4_channels, kernel_size=n4_kernel, padding=n4_kernel//2 )
 
         linear_in_size = n4_channels * ((28 // pool1) // pool2) ** 2 # number out channels times pooling dimension
         self.linear1 = nn.Linear( linear_in_size, linear_features )
@@ -66,6 +66,7 @@ class BestNN( torch.nn.Module ):
 
     def forward( self, x ):
         # first round of convolutions
+        x /= 255
         x = x.view( -1, 1, 28, 28 )
         x = F.relu( self.cv1( x ) )
         x = F.relu( self.cv2( x ) )

@@ -5,7 +5,6 @@ import random
 
 import torch
 import torch.nn.functional as F
-from torchvision import transforms
 import numpy as np
 
 from data import load
@@ -50,10 +49,6 @@ def get_args():
     p.add_argument('--best-n4-kernel', type=int, default=3)
     p.add_argument('--best-pool2', type=int, default=3)
     p.add_argument('--best-linear-features', type=int, default=80)
-
-    # training hardware configurations
-    p.add_argument('--gpu', action='store_true')
-
     return p.parse_args()
 
 def train(args):
@@ -88,24 +83,40 @@ def train(args):
                        args.best_linear_features)
     else:
         raise Exception("Unknown model type passed in!")
-    cuda_available = lambda: torch.cuda.is_available() and args.gpu
-    if cuda_available():
-        print("CUDA!!!")
-        model = model.cuda()
 
-    # if
-    else:
-        print("No cuda :(")
+    # Best CNN Optimization (Learning Rate)
+    # CNN number of channels
+    ch_size = [10,30,50,70,90,110,130]
+    dev_acc_dict = {}
 
-#Starting code
-    if False:
+    for best_n1_channels in ch_size:
         # setup metric logging. It's important to log your loss!!
+        args.log_file = args.log_file.replace("-logs.csv",f"_ch1-{best_n1_channels}-logs.csv")
         log_f = open(args.log_file, 'w')
         fieldnames = ['step', 'train_loss', 'train_acc', 'dev_loss', 'dev_acc']
         logger = csv.DictWriter(log_f, fieldnames)
         logger.writeheader()
 
+        # Reassigning model with specific channel number
+        model = BestNN(best_n1_channels,
+                      args.best_n1_kernel,
+                      args.best_n2_channels,
+                      args.best_n2_kernel,
+                      args.best_pool1,
+                      args.best_n3_channels,
+                      args.best_n3_kernel,
+                      args.best_n4_channels,
+                      args.best_n4_kernel,
+                      args.best_pool2,
+                      args.best_linear_features)
+        print(model)
+        if torch.cuda.is_available():
+            print("CUDA-Accelerated")
+            model = model.cuda()
+
+
         optimizer = torch.optim.Adam(model.parameters(), lr=args.learning_rate)
+        lr_scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=1250, gamma=0.5 )
 
         # TODO: You can change this loop as you need to, to optimize your training!
         # for example, if you wanted to implement early stopping to make sure you
@@ -116,7 +127,11 @@ def train(args):
             # run the model and backprop for train steps
             i = np.random.choice(train_data.shape[0], size=args.batch_size, replace=False)
             x = torch.from_numpy(train_data[i].astype(np.float32))
-            y = torch.from_numpy(train_labels[i].astype(np.int))
+            y = torch.from_numpy(train_labels[i].astype(np.int)).type(torch.long)
+
+            if torch.cuda.is_available():
+                x = x.cuda()
+                y = y.cuda()
 
             # Forward pass: Get logits for x
             logits = model(x)
@@ -126,6 +141,7 @@ def train(args):
             optimizer.zero_grad()
             loss.backward()
             optimizer.step()
+            lr_scheduler.step()
 
             # every 100 steps, log metrics
             if step % 100 == 0:
@@ -137,6 +153,7 @@ def train(args):
                 if dev_acc > best_dev_acc:
                     best_model = model
                     best_dev_acc = dev_acc
+                    dev_acc_dict[ str(best_n1_channels) ] = best_dev_acc
 
                 step_metrics = {
                     'step': step,
@@ -146,100 +163,35 @@ def train(args):
                     'dev_acc': dev_acc
                 }
 
-                print(f'On step {step}: Train loss {train_loss} | Dev acc is {dev_acc}')
+                print(f'On step {step:5d}: Train loss {train_loss:.5f} | Dev acc is {dev_acc:.5f} | Learning Rate is {lr_scheduler.get_lr()[0]}')
                 logger.writerow(step_metrics)
 
         # close the log file
         log_f.close()
         # save model
-        print(f'Done training. Saving model at {args.model_save}')
-        torch.save(best_model, args.model_save)
-
-
-    # Feed Forward Optimization
-    if True:
-    #FF learning rates
-        lrates = [args.learning_rate]
-        for lrnum in lrates:
-            # setup metric logging. It's important to log your loss!!
-            log_f = open(args.log_file, 'w')
-            fieldnames = ['step', 'train_loss', 'train_acc', 'dev_loss', 'dev_acc']
-
-            logger = csv.DictWriter(log_f, fieldnames)
-            logger.writeheader()
-
-            optimizer = torch.optim.Adam(model.parameters(), lr=lrnum)
-            lr_scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=1250, gamma=0.5 )
-
-            # TODO: You can change this loop as you need to, to optimize your training!
-            # for example, if you wanted to implement early stopping to make sure you
-            # don't overfit your model, you would do so in this loop.
-            best_model = None
-            best_dev_acc = 0.0
-            for step in range(args.train_steps):
-                # run the model and backprop for train steps
-                i = np.random.choice(train_data.shape[0], size=args.batch_size, replace=False)
-                x = torch.from_numpy(train_data[i].astype(np.float32))
-                y = torch.from_numpy(train_labels[i].astype(np.int)).type(torch.long)
-
-                if cuda_available():
-                    x = x.cuda()
-                    y = y.cuda()
-
-                # Forward pass: Get logits for x
-                logits = model(x)
-                # Compute loss
-                loss = F.cross_entropy(logits, y)
-                # Zero gradients, perform a backward pass, and update the weights.
-                optimizer.zero_grad()
-                loss.backward()
-                optimizer.step()
-                lr_scheduler.step()
-
-                # every 100 steps, log metrics
-                if step % 100 == 0:
-                    train_acc, train_loss = approx_train_acc_and_loss(model,
-                                                                      train_data,
-                                                                      train_labels)
-                    dev_acc, dev_loss = dev_acc_and_loss(model, dev_data, dev_labels)
-
-                    if dev_acc > best_dev_acc:
-                        best_model = model
-                        best_dev_acc = dev_acc
-
-                    step_metrics = {
-                        'step': step,
-                        'train_loss': loss.item(),
-                        'train_acc': train_acc,
-                        'dev_loss': dev_loss,
-                        'dev_acc': dev_acc
-                    }
-
-                    print(f'On step {step:5d}: Train loss {train_loss:.5f} | Dev acc is {dev_acc:.5f} | Learning Rate is {lr_scheduler.get_lr()[0]}')
-                    logger.writerow(step_metrics)
-
-
-
-            # close the log file
-            log_f.close()
-            # save model
-            print( "Best Dev acc is:", best_dev_acc )
-            print(f'Done training. Saving model at {args.model_save}')
-            torch.save(best_model.cpu(), args.model_save)
-
+        print( "Best Dev acc is:", best_dev_acc )
+        model_save = args.model_save.replace('.torch', f"_ch1-{best_n1_channels}.torch")
+        print(f'Done training. Saving model at {model_save}')
+        torch.save(best_model.cpu(), model_save)
+        print()
     
+    # log layer 1 out channel results
+    with open('logs/ch1-results.csv','w') as f: 
+      w = csv.DictWriter(f, dev_acc_dict.keys())
+      w.writeheader()
+      w.writerow(dev_acc_dict)
 
 def approx_train_acc_and_loss(model, train_data, train_labels):
     idxs = np.random.choice(len(train_data), 4000, replace=False)
     x = torch.from_numpy(train_data[idxs].astype(np.float32))
     y = torch.from_numpy(train_labels[idxs].astype(np.int)).type(torch.long)
-    if next(model.parameters()).is_cuda:
+    if torch.cuda.is_available():
         x = x.cuda()
         y = y.cuda()
     logits = model(x)
     loss = F.cross_entropy(logits, y)
     y_pred = torch.max(logits, 1)[1]
-    if y_pred.is_cuda:
+    if torch.cuda.is_available():
         y_pred = y_pred.cpu()
     return accuracy(train_labels[idxs], y_pred.numpy()), loss.item()
 
@@ -247,13 +199,13 @@ def approx_train_acc_and_loss(model, train_data, train_labels):
 def dev_acc_and_loss(model, dev_data, dev_labels):
     x = torch.from_numpy(dev_data.astype(np.float32))
     y = torch.from_numpy(dev_labels.astype(np.int)).type(torch.long)
-    if next(model.parameters()).is_cuda:
+    if torch.cuda.is_available():
         x = x.cuda()
         y = y.cuda()
     logits = model(x)
     loss = F.cross_entropy(logits, y)
     y_pred = torch.max(logits, 1)[1]
-    if y_pred.is_cuda:
+    if torch.cuda.is_available():
         y_pred = y_pred.cpu()
 
     return accuracy(dev_labels, y_pred.numpy()), loss.item()
@@ -274,6 +226,8 @@ def test(args):
         # Make the x look like it's in a batch of size 1
         x = x.view(1, -1)
         model.eval()
+        if torch.cuda.is_available():
+            x = x.cuda()
         logits = model(x)
         pred = torch.max(logits, 1)[1]
         preds.append(pred.item())
