@@ -1,0 +1,12 @@
+% \emph{Not certain about this}
+
+Suppose that we have a set of weights where $\exists i,j$ such that $i\neq j$ and $w_i \neq w_j$ that minimizes squared loss. This means that we have
+$$
+\frac{1}{2}\left(y - \sigma\left(\sum_{k=0}^n w_k x_k\right)\right)^2
+$$
+is minimized. Take $\delta \neq 0 \in \mathbb{R}$. Then let $w_i' = w_i + \delta x_j$ and $w_j' = w_j - \delta x_i$ and $w_k' = w_k ~\forall k \neq i,j$. Therefore, 
+$$
+\sum_{k=0}^n w_k'x_k = (w_i + \delta x_j)x_i + (w_j - \delta x_i) x_j + \sum_{k\neq i,j} w_k x_k = \sum_{k=0}^n w_k x_k
+$$
+Thus we have another set of weights that produces $\sigma(\sum_k w_k' x_k) = \sigma(\sum_k w_k x_k)$ and therefore produces the same squared loss. Since the original parameters minimizes the squared loss, this new set of parameters also minimizes squared loss. 
+

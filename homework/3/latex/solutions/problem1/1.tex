@@ -1,0 +1,14 @@
+\newcommand{\barx}{\bar{x}}
+\begin{enumerate}[(a) ]
+    \item Suppose the activation function $f(x) = x$. Define the weights of each layer $i$ as $\beta_i \in \mathbb{R}^{n_i \times n_{i+1}}$ where $n_i$ is the input size of layer $i$, including bias term, (i.e. $n_1$ = $\dim(x_0) + 1$). Define $\barx = (y^T, 1)^T$ and $\barx_i = f(\beta_i \barx_{i-1})$, using matrix multiplication of $\beta_i$ and $\barx_{i-1}$. Therefore, $\barx_i = \beta_i \barx_{i-1} \because ~f(x) = x$. Therefore, applying inductive reasoning, we have that the output, $\barx_n$, is given by
+    $$
+        \barx_n = \left(\prod_{i=1}^n \beta_i\right) \barx_0  = \beta \barx_0
+    $$
+    where $\beta = \prod_{i=1}^n \beta_i \in \mathbb{R}^{(\dim(x_0)+1) \times \dim{x_n} }$. Therefore, fitting outputs $y_i \in \mathbb{R}^{\dim{x_n}}$, we can formulate fitting the neural network to 
+    $$
+        \argmin_\beta \sum_i ||y_i - \beta x_{0,1} ||^2
+    $$
+    which is of the form of a linear regression model.
+    
+    \item Using the formulation of (a), there is a unique loss minimizer setting using linear regression to determine $\beta$. However, in the general scenario where we use a non-linear activation (i.e. ReLU), there is not a unique minimizer loss setting for realizing the weights of the model. Given the non-linearities, there are increasing amounts of local minima in loss functions. Also, these weights will be optimized differently based on the different loss functions used (L1, L2, KL-Divergence, etc. will all vary differently). The parameters of these models are usually much larger than the dimension of the problem they are trying to fit and task-specific losses and intuition are needed to pick a good performing loss function, however, none of these settings will be unique.  
+\end{enumerate}

@@ -30,10 +30,11 @@ class SimpleConvNN( torch.nn.Module ):
     def __init__( self, n1_chan, n1_kern, n2_kern ):
         super( SimpleConvNN, self ).__init__()
 
-        # self.cv1 = nn.Conv2d(1, n1_chan, kernel_size = n1_kern, padding=n1_kern//2)
-        self.cv1 = nn.Conv2d( 1, n1_chan, kernel_size=n1_kern, padding='same' )
-        self.cv2 = nn.Conv2d( n1_chan, 10, kernel_size=n2_kern, stride=2, padding=n2_kern // 2 )
-        self.mp = nn.MaxPool2d( 14 )
+        self.cv1 = nn.Conv2d(1, n1_chan, kernel_size = n1_kern, padding=0)
+        self.cv2 = nn.Conv2d(n1_chan, 10, kernel_size = n2_kern, stride = 2, padding=0)
+        
+        mpsize = (28 -(n1_kern + n2_kern) + 1)//2 + 1
+        self.mp = nn.MaxPool2d(mpsize)
 
     def forward( self, x ):
         x = x.reshape( len( x ), 1, 28, 28 )

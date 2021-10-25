@@ -1,0 +1,32 @@
+\input{commands/calculus}
+\begin{enumerate}[(i) ]
+    \item $a_1 = -1 + 6 - 2 = 3$, $h_1 = 3$, $\yh = h_1 + 2 x_1 = 3 - 2 = 1$
+    
+    
+    \item $\hat{y} = ReLU(w_1 x_1 + w_2 x_2 + w_3 x_3) + 2 x_1$
+    
+    
+    \item The gradients of $l$ w.r.t $w_i$ is given by 
+    $$
+    \pdv{l}{w_i} = \pdv{l}{\yh}\pdv{\yh}{w_i} = -(y - \yh)\pdv{\yh}{w_i} = 
+    \begin{cases}
+    -(y-\yh) x_i, & w_1 x_1 + w_2 x_2 + w_3 x_3 > 0\\
+    0, &\text{otherwise}
+    \end{cases}
+    $$
+    We find that $\yh = ReLU(-1 + 6 + 2) - 2 = 5$. So $(y - \yh) = -1 - 5 = 6$.
+    Therefore
+    $$
+    \left.\pdv{l}{w_1} = -6 (-1) = 6 ~\right|~
+    \left.\pdv{l}{w_2} = -6 (-3) = 18 ~\right|~
+    \pdv{l}{w_3} = -6 (-2) = 12
+    $$
+    
+    
+    \item In each case, we find that the update will follow the negative of the gradient direction and the update here $\Delta w_i \propto -\pdv{l}{w_i} < 0 ~\forall i = 1,2,3$, so each parameter will decrease.
+    
+    
+    \item $\pdv{l}{v_1} = \pdv{l}{\yh}\pdv{\yh}{v_1} = -(y-\yh)x_1 = -6(-1) = 6$ and $\pdv{l}{v_2} = \pdv{l}{\yh}\pdv{\yh}{v_2} = -(y-\yh)h_1 = -6(7) = -42$. $v_{i,new} = v_i - \eta \pdv{l}{v_i}$, so we have $v_{1,new} = 2 - \frac{1}{2}(6) = -1$ and $v_{2,new} = 1 - \frac{1}{2}(-42) = 22$.
+    
+    
+\end{enumerate}

@@ -1,0 +1,19 @@
+\input{commands/calculus}
+
+\begin{enumerate}
+    \item First, note that $\odv{\sigma(x)}{x} = -\frac{\exp(-x)}{(1 + \exp(-x))^2} = -\sigma(x)(1 - \sigma(x))$. So we have that $\odv{\log\sigma(x)}{x} = \frac{1}{\sigma(x)}\odv{\sigma(x)}{x} = \sigma(x) - 1$. Furthermore, $\odv{\log(1-\sigma(x))}{x} = \frac{1}{1 - \sigma(x)}\odv{(-\sigma(x))}{x} = \sigma(x)$. Thus,
+    \begin{align*}
+        \odv[2]{h}{x} &= \odv{}{x} \left( -\log\sigma(x) + x(1 - \sigma(x)) +\log(1 - \sigma(x)) - (1-x) \sigma(x)  \right)\\
+        &= (1 - \sigma(x)) + 1 + \sigma(x) + \sigma(x)(1 - \sigma(x)) > 0 ~\forall x \in \mathbb{R}\\
+        &\implies h(x) ~\text{is convex in } x
+    \end{align*}
+    
+    \item Second, if $h(x)$ is convex, then $\odv[2]{h}{x} > 0 ~\forall x$. Consider $g(w_1, \dots, w_k)$ a linear function,
+     $$
+     \pdv[2]{h(g(w_1, \dots, w_k))}{w_i} = \pdv[2]{h(g)}{g}\left(\pdv{g}{w_i}\right)^2 + \pdv{h}{g} \pdv[2]{g}{w_i} = \pdv[2]{h(g)}{g}\left(\pdv{g}{w_i}\right)^2 \because g ~\text{is linear in } w_i
+     $$
+     Therefore, $\because h$ is convex and $\pdv{g}{w_i} \in \mathbb{R}$, $\pdv[2]{h(g)}{w_i} > 0 ~\forall w_i$. So $h(g)$ is convex in $w_1, \dots, w_k$.
+     
+     \item Consider $h(x) = \sum_{i=1}^n c_i h_i(x)$ for $c_i > 0$ and $h_i$ convex. Then $\odv[2]{h}{x} = \sum_{i=1}^n c_i \odv[2]{h_i}{x} > 0 ~\because c_i > 0 ~\&~ h_i$ is convex.
+\end{enumerate}
+The negative log-likelihood of each of the vertices in the intermediate layer can be represented as $h_i(g_i(w_{i,1}, \dots, w_{i,k}))$ where $h_i$ is of the form in (a) and $g_i$ is a linear function of the weights. By (b), $h_i(g_i(w_{i,1}, \dots, w_{i,k}))$ is convex w.r.t $w_{i,j} ~\forall j = 1, \dots, k$. Therefore, since the output is a sum of the intermediate vertices with non-negative weights, we have that the negative log-likelihood can be represented as a weighted sum of convex functions (w.r.t the parameters of the model) with non-negative weights. Therefore, by (c), the negative log-likelihood of the model is convex with respect to its parameters.

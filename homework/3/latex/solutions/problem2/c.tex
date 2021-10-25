@@ -1,0 +1,17 @@
+Define each classifier for class $i$ to be $f_i(x) = w_i^T x + b_i$,
+where the following are the parameters from the above SVM (support vectors circled with their corresponding color):
+
+\begin{center}
+    \begin{tabular}{c | c | c}
+        Class $i$ & $w_i$ & $b_i$ \\
+        \hline
+        1 & $(0,1)$                      & $1/2$  \\ 
+        2 & $(-1/\sqrt{2}, -1/\sqrt{2})$ & $0$ \\ 
+        3 & $(1/\sqrt{2}, -1\sqrt{2})$   & $1$  
+    \end{tabular}
+\end{center}
+
+Given a test sample, $x_t$, we can decide a class based on the highest class correspondence using 
+$$
+\yh_t = \argmax_i f_i(x_t) = \argmax_i w_i^T x_t + b_i
+$$
