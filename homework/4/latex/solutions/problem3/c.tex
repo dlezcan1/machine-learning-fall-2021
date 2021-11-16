@@ -1,0 +1,6 @@
+New local Markov property:
+% $\condindep{B}{Nothing}{A, F, G}$
+$\condindep{C}{A, F, G, H}{B}$,
+
+$\condindep{H}{A, C, D, E, F}{B, G}$,$\mathbf{\condindep{G}{A, C, D}{F}}$,
+$\condindep{D}{B, D, E, F, G, H}{A, C}$, $\condindep{E}{A, B, D, F, H}{C, G}$. In the new graph, we have that $G \ci_d A \given F$, however in the previous graph, $A \rightarrow B \rightarrow G$ is open, so $G \not\ci_d A \given F$ in the old graph. So they represent different distributions.

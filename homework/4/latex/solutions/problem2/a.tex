@@ -1,0 +1,18 @@
+% \begin{align*}
+%         S &= \sum^{100}_{x_1 = 1} \dots \sum^{100}_{x_8 = 1} \exp(x_1 x_2 + x_4 x_5 + x_7 x_8) \prod_{i=2,5,7} (x_i + x_3 + x_6)^i \\
+%         &= \sum^{100}_{x_1 = 1} \dots \sum^{100}_{x_8 = 1} e^{x_1 x_2}e^{x_4 x_5}e^{x_7 x_8}(x_2 + x_3 + x_6)^2(x_5 + x_3 + x_6)^5(x_7 + x_3 + x_6)^7 \\
+%         &= \sum^{100}_{x_2,x_5,x_7 = 1}(\sum^{100}_{x_1,x_4,x_8 = 1}(e^{x_1 x_2}e^{x_4 x_5}e^{x_7 x_8})* \\
+%         &\sum^{100}_{x_3 = 1}\sum^{100}_{x_6 = 1}((x_2 + x_3 + x_6)^2(x_5 + x_3 + x_6)^5(x_7 + x_3 + x_6)^7))
+%     \end{align*}
+    
+\begin{align*} % this is my guess, but i don't think it works
+    S &= \sum_{x_1, \dots, x_8 = 8}^{100} e^{x_1 x_2} e^{x_4 x_4} e^{x_7 x_8} (x_2 + x_3 + x_6)^2 (x_5 + x_3 + x_6)^5 (x_7 + x_3 + x_6)^7\\
+    &= \sum_{x_3, x_6 = 1}^{100} \left( \sum_{x_1, x_2=1}^{100} e^{x_1 x_2} (x_2 + x_3 + x_6)^2\right)\left(  \sum_{x_4, x_5=1}^{100} e^{x_4 x_5} (x_5 + x_3 + x_6)^5 \right)\\
+    &\left(  \sum_{x_7, x_8=1}^{100} e^{x_7 x_8} (x_7 + x_3 + x_6)^7 \right)
+        % &= \sum_{x_3, x_6 = 1}^{100}\left( \sum_{x_2=1}^{100} \left(\sum_{x_1=1}^{100}e^{x_1 x_2}\right) (x_2 + x_3 + x_6)^2\right) \\
+        % &\left( \sum_{x_5=1}^{100} \left(\sum_{x_4=1}^{100}e^{x_4 x_5}\right) (x_5 + x_3 + x_6)^5\right)\left( \sum_{x_7=1}^{100} \left(\sum_{x_8=1}^{100}e^{x_7 x_8}\right) (x_7 + x_3 + x_6)^7\right)
+\end{align*}
+    
+The number of terms are $100^2$ for the $x_3,x_6$ terms multiplied by $3*100^2$ for each pairing $(x_1,x_2),(x_4,x_5),(x_7,x_8)$. Together, this means there are $3*10^8 terms$. We're aware that this is greater than $10^7$ terms listed in the problem statement, but aren't sure how to further reduce the number of $x_3,x_6$ terms.
+     
+    %  Computations are: $100^2(3\times 100^2) = 3\times100^4 = 3 \times 10^8$ \emph{(not $\leq 10^7$) / or is it $3 \times 100^2 + 100^2 = 4 \times 100^2 = 4 \times 10^4 < 10^6$?}.

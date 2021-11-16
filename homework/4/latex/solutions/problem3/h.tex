@@ -1,0 +1,19 @@
+
+Visually, $(A,B,C,F)$ appears like a fine root to me. The inbound messages are:
+\begin{align*}
+    % \text{\bf TODO}\\
+    \inbound{ACD}{ABCF}{AC} &= \sum_D \clique{ACD},~~~
+    \inbound{CEG}{BCFG}{CG} = \sum_E \clique{CEG}\\
+    \inbound{BGH}{BCFG}{BG} &= \sum_H \clique{BGH}\\
+    \inbound{BCFG}{ABCF}{BCF} &= \sum_G \clique{BCFG} \inbound{CEG}{BCFG}{CG} \inbound{BGH}{BCFG}{BG} 
+    % = \sum_{EGH} \clique{BCFG}\clique{CEG}\clique{BGH}
+\end{align*}
+
+Outbound messages are:
+\begin{align*}
+    % \text{\bf TODO}\\
+    \outbound{ACD}{ABCF}{AC} &= \sum_{BF} \clique{ABCF} \inbound{BCFG}{ABCF}{BCF} \\%= \sum_{BEFGH}\clique{ABCF}\clique{BCFG}\clique{CEG}\clique{BGH}\\
+    \outbound{BCFG}{ABCF}{BCF} &= \sum_{A} \clique{ABCF}\inbound{ACD}{ABCF}{AC} \\%= \sum_{AD} \clique{ABCF}\clique{ACD}\\
+    \outbound{CEG}{BCFG}{CG} &= \sum_{BF} \clique{BCFG} \outbound{BCFG}{ABCF}{BCF} \inbound{BGH}{BCFG}{BG}\\
+    \outbound{BGH}{BCFG}{BG} &= \sum_{CF} \clique{BCFG} \outbound{BCFG}{ABCF}{BCF} \inbound{CEG}{BCFG}{CG}
+\end{align*}

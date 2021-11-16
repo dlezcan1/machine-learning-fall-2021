@@ -1,0 +1,19 @@
+The marginal probabilities for each maximal clique are given by:
+\begin{align*}
+    p(A,B,C,F) &= \frac{\clique{ABCF} \inbound{ACD}{ABCF}{AC}\inbound{BCFG}{ABCF}{BCF}}{\sum_{ABCF}\clique{ABCF} \inbound{ACD}{ABCF}{AC}\inbound{BCFG}{ABCF}{BCF}}\\
+    % &= \frac{\clique{ABCF}}{}\\
+    p(B,C,F,G) &= \frac{\clique{BCFG}\outbound{BCFG}{ABCF}{BCF}\inbound{CEG}{BCFG}{CG}\inbound{BGH}{BCFG}{BG}}{\sum_{BCFG}\clique{BCFG}\outbound{BCFG}{ABCF}{BCF}\inbound{CEG}{BCFG}{CG}\inbound{BGH}{BCFG}{BG}}\\
+    p(A,C,D) &= \frac{\clique{ACD}\outbound{ACD}{ABCF}{AC}}{\sum_{ACD}\clique{ACD}\outbound{ACD}{ABCF}{AC}}\\
+    p(C,E,G) &= \frac{\clique{CEG}\outbound{CEG}{BCFG}{CG}}{\sum_{CEG}\clique{CEG}\outbound{CEG}{BCFG}{CG}}\\
+    p(B,G,H) &= \frac{\clique{BGH}\outbound{BGH}{BCFG}{BG}}{\sum_{BGH}\clique{BGH}\outbound{BGH}{BCFG}{BG}}
+\end{align*}
+Using $\vec{V} = (A,B,C,D,E,F,G,H)$, and $C(\mathcal{G}) = \{\text{cliques from (f)}\}$, we have the following relationships which will resolve the marginal of the MRF factorization:
+\begin{align*}
+    numerator(p(A,B,C,F)) &= \clique{ABCF}\sum_{DEGH} \clique{ACD} \clique{BCFG}\clique{CEG}\clique{BGH}~\&\\
+    numerator(p(B,C,F,G)) &= \clique{BCFG} \sum_{ADEH} \clique{ABCF}\clique{ACD} \clique{CEG}\clique{BGH}~\&\\
+    numerator(p(A,C,D)) &= \clique{ACD}\sum_{BFGEH}\clique{ABCF}\clique{BCFG}\clique{CEG}\clique{BGH}~\&\\
+    numerator(p(C,E,G)) &= \clique{CEG} \sum_{BFADH}\clique{BCFG} \clique{ABCF}\clique{ACD} \clique{BGH} ~\&\\
+    numerator(p(B,G,H)) &= \clique{BGH} \sum_{CFADE}\clique{BCFG}\clique{ABCF}\clique{ACD}\clique{CEG}
+    \implies\\
+    p(\vec{c}) &= \frac{\sum_{\vec{V}\setminus\vec{c}} \prod_{\vec{c}' \in C(\mathcal{G})}\phi_{\vec{c}'}}{\sum_{\vec{V}} \prod_{\vec{c}' \in C(\mathcal{G})}\phi_{\vec{c}'}}, ~\forall \vec{c} \in C(\mathcal{G})
+\end{align*}

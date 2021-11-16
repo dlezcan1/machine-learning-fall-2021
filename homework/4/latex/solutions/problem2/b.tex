@@ -1,0 +1,38 @@
+MRF: 
+    \begin{center}
+\begin{tikzpicture}[>=stealth, node distance=1.2cm]
+    \tikzstyle{format} = [draw, very thick, circle, minimum size=5.0mm,
+	inner sep=0pt]
+
+	\begin{scope}
+		\path[-, very thick]
+			node[format] (x_1) {$x_1$}
+			node[format, right of=x_1] (x_2) {$x_2$}
+			node[format, below of=x_2] (x_5) {$x_5$}
+			node[format, left of=x_5] (x_4) {$x_4$}
+			node[format, below right of=x_2] (x_3) {$x_3$}
+			node[format, below right of=x_5] (x_6) {$x_6$}
+			node[format, below of=x_5] (x_7) {$x_7$}
+			node[format, left of=x_7] (x_8) {$x_8$}
+
+
+			(x_1) edge[blue] (x_2)
+			
+			(x_4) edge[blue] (x_5)
+			
+			(x_7) edge[blue] (x_8)
+			
+			(x_2) edge[blue] (x_3)
+			(x_2) edge[blue] (x_6)
+            (x_3) edge[blue] (x_6)
+
+			(x_3) edge[blue] (x_5)
+			(x_6) edge[blue] (x_5)
+            
+			(x_3) edge[blue] (x_7)
+			(x_6) edge[blue] (x_7)
+
+		;
+	\end{scope}
+\end{tikzpicture}
+\end{center}

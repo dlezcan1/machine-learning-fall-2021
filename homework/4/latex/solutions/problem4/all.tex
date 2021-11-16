@@ -1,0 +1,8 @@
+% \emph{Assigned: Harrison}
+\begin{enumerate}[(a)]
+    \item 
+    No. The k means algorithm will always continue to find a local minimum, irrespective of the initializing points. That being said, k means is often performed with several different initialized starting points to find better, more optimal clusters.
+    
+    \item 
+    In this example, the k means algorithm would terminate after a single iteration, regardless of whether (0,0) is included or not (addressing the related Piazza post). To determine the final cluster assignments and centroids, we assume that we are referring to the scenario with 2k+1 points (including (0,0)). Here, the first cluster will include the points (0,0),(0,1),...,(0,k), and the centroid will be (0, $\frac{k}{2}$). The second cluster will include (0,k+1),...(0,2k), and its centroid would be (0, $\frac{3k+1}{2}$).
+\end{enumerate}

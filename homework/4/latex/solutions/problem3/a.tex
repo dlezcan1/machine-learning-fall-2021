@@ -1,0 +1,18 @@
+Below is a table to explain the following independences.
+
+\begin{tabular}{|l|c|p{7.75cm}|}
+    \hline
+    \textbf{Independence} & \textbf{Answer} & \textbf{Explanation}\\
+    \hline\hline
+    $A \ci F \given D$ & False & $A$ and $F$ collide on $B$ and $D$ is a descendent of $B$ therefore, $A$ and $F$ are not d-separated.\\
+    \hline
+    $A \ci G \given B,C$ & False & $A$ and $F$ collide on $B \therefore A \rightarrow B \leftarrow F$ is open. Furthermore, $F \rightarrow G$ is open, so $A \rightarrow B \leftarrow F \rightarrow G $ is open.\\
+    \hline
+    $G \ci A \given B, H, D, E, F$ & False & The only way out of $A$ is through $D$ which collides with $C$ so we have $A \rightarrow D \leftarrow C$. We also have that $C$ and $G$ collide with $E$, therefore we have $A \rightarrow D \leftarrow C \rightarrow E \leftarrow G$ is open.  \\
+    \hline
+    $F \ci D \given A, B$ & True & All chains out of $F$ are blocked by $B$, and $A$ and $F$ don't collide $\because A$ is conditioned on, so the only open paths out of $F$ are through $G$. There are no open paths from $G$ to $D$ since $C \rightarrow E \leftarrow G$ is closed. \\
+    \hline
+    $C \ci H \given B$ & True & $C \leftarrow B \rightarrow G$ is closed $\because B$ is conditioned on and $C \rightarrow E \leftarrow G$ is closed because $E$ is not conditioned on, therefore all paths from $C$ to $G$ are blocked. \\
+    \hline
+\end{tabular}
+

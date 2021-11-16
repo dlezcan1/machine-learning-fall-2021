@@ -1,0 +1,7 @@
+Since there are no cliques entirely in $\vec{x}$, we have that
+\begin{align*}
+    p(\vec{y} \given \vec{x}) &= \frac{1}{Z(\vec{x})} \psi(x_n, y_n)\prod_{j=2}^n\psi(y_0, y_j) \prod_{j=0}^{n-1} \psi(x_j, y_j)\psi(y_j, y_{j+1})\\
+    \log p(\vec{y}\given \vec{x}) 
+        % &= -\log{Z} + \sum_{j=0}^n\left(\sum_i \theta_i f_i(x_j, y_j)\right) + \sum_{j=1}^n\left(\sum_i \theta_i f_i(y_0, y_j)\right)\\ &+ \sum_{j=2}^n\sum_i \theta_i f_i(y_{j-1}, y_j)\\
+        &= -\log Z(\vec{x}) + \sum_i \theta_i \biggr(f_i(x_0, y_0) + f_i(x_1, y_1) + f_i(y_0, y_1) \\ &~~+ \sum_{j=2}^n f_i(x_j, y_j) + f_i(y_0, y_j) + f_i(y_{j-1},y_j) \biggr)
+\end{align*}

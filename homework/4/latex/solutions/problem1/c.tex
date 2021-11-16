@@ -1,0 +1,3 @@
+The main difference between $\log p(\vec{y}, \vec{x})$ and $\log p(\vec{y} \given \vec{x})$ is the $Z$ term. Here, we have that $k'$ is very large, so computing $Z$ for $\log p(\vec{y},\vec{x})$ would perform an operation proportional to an exponential of $k'$.
+% \emph{could actually determine how many parameters here if it feels like it would help}.
+However, in considering $Z(\vec{x})$ in $\log p(\vec{y} \given \vec{x})$, $Z$ is parameterized by $\vec{x}$, and we only have to sum the cliques over $\vec{y}$, therefore we never have to perform any computations over the very large number of parameters $k'$, which is much more favorable.

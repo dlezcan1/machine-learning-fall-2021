@@ -1,0 +1,25 @@
+The clique tree for the moralized graph is show below
+
+\begin{center}
+\begin{tikzpicture}[>=stealth, node distance=2.0cm]
+    \tikzstyle{format} = [draw, very thick, circle, minimum size=15.0mm,
+	inner sep=0pt]
+
+	\begin{scope}
+		\path[-, very thick]
+			node[format] (ABCF) {$A,B,C,F$}
+
+            node[format, below right of=ABCF]  (BCFG) {$B,C,F,G$}
+			node[format, below left of=ABCF]  (ACD) {$A,C,D$}
+			node[format, below right of=BCFG]  (BGH) {$B,G,H$}
+			node[format, below left of=BCFG]  (CEG) {$C,E,G$}
+
+            (ABCF) edge[blue] (BCFG)
+            (ABCF) edge[blue] (ACD)
+            
+            (BCFG) edge[blue] (CEG)
+            (BCFG) edge[blue] (BGH)
+		;
+	\end{scope}
+\end{tikzpicture}
+\end{center}
