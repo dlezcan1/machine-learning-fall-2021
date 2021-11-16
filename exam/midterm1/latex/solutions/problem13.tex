@@ -1,0 +1,51 @@
+\textbf{Solution:}
+
+\begin{enumerate}[(i)]
+    \item First, note that $\odv{\sigma}{x} = \odv{}{x} (1 + e^{-x})^{-1} = -e^{-x}(1 + e^{-x})^{-2} = -\sigma(x)(1 - \sigma(x))$. 
+    
+    Second, using the above, note that $$\pdv{V_m}{V_{m-1}} = \pdv{}{V_{m-1}} \sigma(\beta_{m0} + \beta_{m1} V_{m-1}) = \beta_{m1} V_m ( 1 - V_m)$$
+    
+    Therefore if we consider just looking at the bias terms,
+    \begin{align*}
+        \pdv{V_M}{\beta_{m0}} &= \pdv{V_M}{V_{M-1}}\pdv{V_{M-1}}{\beta_{m0}} 
+             = \pdv{V_m}{\beta_{m0}}\prod_{j=m+1}^M \pdv{V_j}{V_{j-1}}\\
+            &= V_m( 1 - V_m) \prod_{j=m+1}^M \beta_{j1} V_j ( 1 - V_j )
+    \end{align*}
+    Now since $V_j$ is a sigmoid, $ 0 \leq V_j(1 - V_j) \leq \frac{1}{2} < 1$, therefore, as $m$ gets smaller (closer to $1$, closer to input layer) we see that the product term becomes smaller $\because$
+    \begin{equation*}
+        \prod_{j=m+1}^M V_j ( 1 - V_j) \leq \prod_{j=m+1}^M \frac{1}{2} \leq \left(\frac{1}{2}\right)^{M - m - 1}
+    \end{equation*}
+    Similarly, 
+    \begin{align*}
+        \pdv{V_M}{\beta_{m1}} &= \pdv{V_m}{\beta_{m1}} \prod_{j=m+1}^M \pdv{V_j}{V_{j-1}}
+    \end{align*}
+    So we would have that as $m \rightarrow 1$, the proportionality of the gradients decays to zero ($\prod_{j=m+1}^M \pdv{V_j}{V_{j-1}}$). This is also known as the \emph{vanishing gradient} problem.
+    
+    \item First, note that $$\odv{\relu(x)}{x} = \begin{cases} 1 & x > 0\\ 0 & x \leq 0 \end{cases}$$
+    
+    Second, note that
+    $$
+    \pdv{V_j}{V_{j-1}} = \pdv{}{V_{j-1}} \relu(\beta_{j0} + \beta_{j1} V_{j-1}) = \mathbb{I}_{>0}(\beta_{j0} + \beta_{j1}V_{j-1}) \beta_{j1}
+    $$
+    Therefore if we consider just looking at the bias terms,
+    \begin{align*}
+        \pdv{V_M}{\beta_{m0}} &= \pdv{V_M}{V_{M-1}}\pdv{V_{M-1}}{\beta_{m0}} 
+             = \pdv{V_m}{\beta_{m0}}\prod_{j=m+1}^M \pdv{V_j}{V_{j-1}}\\
+             &= \mathbb{I}_{> 0}(\beta_{m0} + \beta_{m1}V_{m-1})\prod_{j=m+1}^M  \mathbb{I}_{>0}(\beta_{j0} + \beta_{j1}V_{j-1}) \beta_{j1}
+    \end{align*}
+    where for parameters that need to be updated, the indicator function for each of these higher layers would be $1$, which would mean that the update is $\propto \prod_{j=m+1}^M \beta_{j1}$, rather than any decay terms. Similarly, just as in (i), the gradients for $\beta_{m1}$ would have the same proportionality constant of $1$.
+    
+    \item We have here that $Y = \sigma(\beta^T \relu(X))$ while logistic regression $Y_{\log} = \sigma(\beta^T X)$, which does not have a non-linear activation ($\relu$). In more mathematical terms
+    \begin{align*}
+        \sigma(\beta^T \relu(X)) &= \sigma(\beta^T X)~\forall X  ~\text{iff}\\
+        \exp(-\beta^T \relu(X)) &= \exp(-\beta^T X)~\forall X  ~\text{iff}\\
+        \beta^T \relu(X) &= \beta^T X ~\forall X ~\text{iff}\\
+        % \beta^T(\relu(X) - X) &= 0 ~\forall X ~\text{iff}\\
+        \relu(X) &= X ~\forall X ~\text{which is a contradiction}
+    \end{align*}
+    So no, this is not a logistic regression model.
+    
+    \item The model's output is represented by $Y = \sum_{k=1}^K \alpha_k \sigma(\beta^T X)$. If we set $\alpha_1 = 1$ and $\alpha_{k > 1} = 0$, we have that $ Y = \sigma(\beta^T X) = Y_{\log}$, so the model is sufficiently general approximate logistic regression.
+    
+    
+\end{enumerate}

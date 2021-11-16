@@ -1,0 +1,7 @@
+\tffalse
+
+Take $(x, y)$ to be an outlier pair $\implies y f(x) < 0 \implies \exp(-y f(x)) > 0$. Therefore, say we have a $f$ that correctly classifies $99$ points and the point $(x, y)$ is largely misclassified (i.e. $y_{100} = 1, f(x_{100}) = -100$). Then we would see that 
+$$
+\sum_{i=1}^{100} \exp(-y_i f(x_i)) \approx \exp(-y_{100} f(x_{100}))
+$$
+$\because \forall i < 100 \exp(-y_i f(x_i)) < 1 \implies \sum_{i=1}^{99} \exp(-y_i f(x_i)) < 100 << \exp(100) = \exp(-y_{100} f(x_{100}) \therefore$ the loss is dominated by the outlier and therefore, exponential loss is not robust to outliers.

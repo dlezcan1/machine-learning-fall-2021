@@ -1,0 +1,26 @@
+\textbf{Solution:}
+
+\begin{enumerate}[(1)]
+    \item 
+    \begin{tabular}{c|ccc|ccc}
+    $t$ & $h_t$ & $\varepsilon_t$ & $\alpha_t$ & $D_{t}(1)$ & $D_{t}(2)$ & $D_{t}(3)$ \\ \hline
+    1 & 2 & $1/3$ & 0.3466 & $ 1/3 $ & $ 1/3 $ & $ 1/3 $ \\
+    2 & 2 & $1/3$ & 0.3466 & $ 1/4 $ & $ 1/4 $ & $ 1/2 $ \\
+    3 & 2 & $1/3$ & 0.3466 & $ 1/6 $ & $ 1/6 $ & $ 2/3 $
+    \end{tabular}
+    
+    \item What we can see here is that $f_{Adaboost}(x) = h_2(x)$ will end up being the classifier after 100 iterations. What we can see here is that $h_2$ correctly classifies $x = -1 \& x = 0$ and misclassifies $x = +1$. $h_1 \& h_3$ both misclassify $x = +1$ as well as misclassify one of either $x = 0$ or $x = -1$. Therefore, $h_2$ will always be picked as the best weak learner therefore since its loss will always out-perform $h_1$ and $h_3$ since it's error rate will always be less as $x = +1$ will continued to get weighted heavier, but all of the classifiers misclassify $x = +1$. Therefore, no other learners will be selected by Adaboost, so $h_2(x)$ will be the learned classifier.
+    
+    \item AdaBoost minimizes the exponential loss of the classifier which focuses very heavily on misclassified data, increasing generalization error. 
+    
+    \item 
+    \begin{align*}
+        \argmax_\beta \prod_i \frac{1}{1 + \exp(-y_i \beta x_i)} &= \argmin_\beta \prod_i (1 + \exp(-y_i \beta x_i)) \\
+            &= \argmin \log \prod_i (1 + \exp(-y_i \beta x_i))\\
+            &= \argmin \sum_i \log(1 + \exp(-y_i \beta x_i))\\
+            &\approx \argmin \sum_i \exp(-y_i \beta x_i) ~\text{using a first-order approximation.}
+    \end{align*}
+    Therefore we see that for $f(x) = \beta x$, this is equivalent as minimizing exponential loss (for logistic regression fits that are within a first-order approximation).
+    
+    
+\end{enumerate}

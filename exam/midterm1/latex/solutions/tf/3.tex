@@ -1,0 +1,7 @@
+\tftrue
+
+The decision boundary of a Naive Bayes classifier between two classes $Y_i$ and $Y_m$ is given by (using independence properties of Naive Bayes)
+\begin{equation*}
+    \log \frac{p(Y_i \given X)}{p(Y_m \given X)} = \log \frac{p(Y_i)}{p(Y_m)} + \sum_j \log \frac{p(X_j \given Y_i)}{p(X_j \given Y_m)} = constant + \sum_j g_j(X_j)
+\end{equation*}
+therefore, yields a linear decision boundary (in $g_j$), so Naive Bayes is a linear classifier.

@@ -1,0 +1,3 @@
+\tffalse
+
+Suppose $f_{true}(x) = x^2$ is the "true" function we are attempting to learn. When we attempt to learn the function using $\hat{f}_1(x;\beta) = a x + b$, there will be a significant amount of bias and very low variance from sampled data from the "true" function. However, if we add more parameters to decrease the bias of the predictor in the form of $\hat{f}_2(x; \beta) = a x^2 + b x + c$, we will not only decrease the bias of the predictor, but we will also decrease its variance since we are able to perfectly learn the function from a decent amount of sampled data. 

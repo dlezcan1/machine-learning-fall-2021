@@ -1,0 +1,9 @@
+\tffalse
+
+\underline{Projection pursuit models}:  $M$ different linear combinations of features $\beta_m^T \vec{x}$ to learn a complex non-linear link functions and add the results
+$$
+f(\vec{x}) = \sum_{m=1}^M g_m(\beta_m^T \vec{x})
+$$
+for a set of \emph{unrestricted} $g_m(\cdot)$.
+
+Here, logistic regression is actually a restricted moment model which learns $f(\vec{x}) = g(\vec{x}; \beta)$ where $g$ is \emph{fixed}, not unrestricted. Therefore, we have that logisitc regression is NOT a projection pursuit model.

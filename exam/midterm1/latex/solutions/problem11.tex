@@ -1,0 +1,32 @@
+\textbf{Solution:}
+
+\begin{enumerate}[(i)]
+    \item 
+    \begin{align*}
+        p(A, D \given C) &= \sum_b p(A, B=b, D \given C)\\
+        &= \sum_b p(A \given C) p(B = b, D \given C) \because A \ci B \cup D \given C\\
+        &= p(A \given C) \sum_b p(B = b, D \given C)\\
+        &= p(A \given C) p(D \given C) \implies A \ci D \given C
+    \end{align*}
+    
+    \item
+    \begin{align*}
+        \log\likelihood_{[D]}(\lambda) &= \sum_i \log(f(x_i ; \lambda))\\
+            &= \sum_i -\lambda x_i + \log \lambda\\
+        \pdv{}{\lambda}\log\likelihood_{[D]} &= \sum_i -x_i + \frac{1}{\lambda} = 0 \implies \\
+        -\left(\sum_i x_i\right) + \frac{N}{\lambda} &= 0\\
+        \frac{1}{\lambda} &= \frac{1}{N} \sum_i x_i \\
+        \lambda &= \left(\frac{1}{N} \sum_i x_i\right)^{-1}
+    \end{align*}
+    
+    \item $\lambda_{MLE}$ corresponds to the inverse of the mean value of $x$. 
+    
+    \item Using (ii), we would find
+    \begin{align*}
+        \pdv{}{\lambda_i} \log \likelihood_{(x_i)}(\lambda_i) &= -x_i + \frac{1}{\lambda_i}\\
+        \lambda_{i+1} &= \lambda_i - \rho \left(\pdv{}{\lambda_i} \log \likelihood_{(x_i)}(\lambda_i)\right)\\
+            &= \lambda_i - \rho\left(-x_i + \frac{1}{\lambda_i}\right)
+    \end{align*}
+    
+    
+\end{enumerate}

@@ -1,0 +1,45 @@
+\textbf{Solution:}
+
+\begin{enumerate}[(i)]
+    \item Note that the distribution $p(\vec{X} \given Y)$ can be modelled as an MRF chain for $$X_1 \given Y \text{---} X_2 \given Y \text{---} \dots \text{---} X_{k-1} \given Y \text{---} X_{k} \given Y $$ 
+    Now, considering a single sample $(\vec{x}_i, y_i)$ and using the MRF factorization of maximal cliques for a 
+    \begin{align*}
+        p(\vec{x_i}, y_i) &= p(y_i) p(\vec{x_i} \given y_i) \\
+            &= p(y_i) \frac{1}{Z} \prod_{j=1}^k \phi_{j | y_i}(x_i^{(j)} \given y_i) \prod_{j=1}^{k-1} \phi_{j,j+1 | y_i}(x_i^{(j)}, x_i^{(j+1)} \given y_i)\\
+        \likelihood_{[D]} &= \prod_{i=1}^n p(\vec{x_i}, y_i)\\
+            &= \prod_{i=1}^n \frac{1}{Z} p(y_i) \prod_{j=1}^k \phi_{j | y_i}(x_i^{(j)} \given y_i) \prod_{j=1}^{k-1} \phi_{j,j+1 | y_i}(x_i^{(j)}, x_i^{(j+1)} \given y_i)
+    \end{align*}
+    
+    \item Using Bayes' rule,
+    \begin{align*}
+        p(Y \given \vec{X}) &= \frac{p(\vec{X} \given Y) p(Y)}{\sum_y p(\vec{X} \given Y = y)} \\
+            &= p(Y) \frac{\frac{1}{Z}\prod_{j=1}^k \phi_{j | Y}(X_j \given Y) \prod_{j=1}^{k-1} \phi_{j,j+1 | Y}(X_j, X_{j+1} \given Y)}{\sum_y \frac{1}{Z} \prod_{j=1}^k \phi_{j | y}(X_j \given Y = y) \prod_{j=1}^{k-1} \phi_{j,j+1 | y}(X_j, X_{j+1} \given Y = y)}\\
+        p(Y \given X) 
+            &= p(Y) \frac{\prod_{j=1}^k \phi_{j | Y}(X_j \given Y)         \prod_{j=1}^{k-1} \phi_{j,j+1 | Y}(X_j, X_{j+1} \given Y)}{\sum_y \prod_{j=1}^k \phi_{j | y}(X_j \given Y = y) \prod_{j=1}^{k-1} \phi_{j,j+1 | y}(X_j, X_{j+1} \given Y = y)}
+    \end{align*}
+    
+    \item Using (ii) and changing $Y_j \rightarrow Y_l$,
+    \begin{align*}
+        \log \frac{p(Y_l \given \vec{X})}{p(Y_m \given \vec{X})} &= \log\left( \frac{p(Y_l)}{p(Y_m)}\frac{\prod_{j=1}^k \phi_{j | Y_l}(X_j \given Y_l)         \prod_{j=1}^{k-1} \phi_{j,j+1 | Y_l}(X_j, X_{j+1} \given Y_l)}{\prod_{j=1}^k \phi_{j | Y_m}(X_j \given Y_m)         \prod_{j=1}^{k-1} \phi_{j,j+1 | Y_m}(X_j, X_{j+1} \given Y_m)} \right)\\
+            &= \log\left(\frac{p(Y_l)}{p(Y_m)} \prod_{j=1}^k \frac{\phi_{j | Y_l}(X_j \given Y_l)}{\phi_{j | Y_m}(X_j \given Y_m)} \prod_{j=1}^{k-1} \frac{\phi_{j,j+1 | Y_l}(X_j, X_{j+1} \given Y_l)}{\phi_{j,j+1 | Y_m}(X_j, X_{j+1} \given Y_m)}\right)\\
+            &= \log{\frac{p(Y_l)}{p(Y_m)}} + \sum_{j=1}^k \log{\frac{\phi_{j | Y_l}(X_j \given Y_l)}{\phi_{j | Y_m}(X_j \given Y_m)}} + \sum_{j=1}^{k-1}\log{\frac{\phi_{j,j+1 | Y_l}(X_j, X_{j+1} \given Y_l)}{\phi_{j,j+1 | Y_m}(X_j, X_{j+1} \given Y_m)}}\\
+            &= \log{\frac{p(Y_l)}{p(Y_m)}} + \sum_{j=1}^k\left(\log\phi_{j | Y_l}(X_j \given Y_l) - \phi_{j | Y_m}(X_j \given Y_m)\right) \sum_{j=1}^{k-1}(\log\phi_{j,j+1 | Y_l}(X_j, X_{j+1} \given Y_l) \\
+            &~- \phi_{j,j+1 | Y_m}(X_j, X_{j+1} \given Y_m))
+    \end{align*}
+    The above decision boundary is linear in $\vec{X}$ if $\forall j =1, \dots, k, \forall Y$ we have that $\log\phi_{j | Y}$ and $\log\phi_{j,j+1 | Y}$ is linear in $\vec{X}$.
+    
+    \item Naive Bayes' assumes
+    \begin{align*}
+    X_1 &\ci X_2, \dots, X_k \given Y \\
+    X_k &\ci X_1, \dots, X_{k-2} \given Y\\
+    X_i &\ci X_1, \dots, X_{i-1}, X_{i+1}, \dots, X_k \given Y ~\forall i = 2, \dots, k-1
+    \end{align*}
+    Given that we know using the graphoid axiom, \emph{weak union}, $A \ci B, C \given D \implies A \ci B \given C, D$, we have that
+    \begin{align*}
+    X_1 &\ci X_2, \dots, X_k \given Y \implies X_i \ci X_3, \dots, X_k \given X_2, Y\\  
+    X_k &\ci X_1, \dots, X_{k-2} \given Y \implies X_k \ci X_1, \dots, X_{k-3} \given X_{k-2}, Y\\
+    X_i &\ci X_1, \dots, X_{i-1}, X_{i+1}, \dots, X_k \given Y  \implies X_i \ci X_1, \dots, X_{i-2}, X_{i+2}, \dots, X_k \given X_{i-1}, X_{i+1}, Y\\ &~\forall i = 2, \dots, k-1
+    \end{align*}
+    So Naive Bayes is a submodel of Slightly Less Naive Bayes. 
+    
+\end{enumerate}

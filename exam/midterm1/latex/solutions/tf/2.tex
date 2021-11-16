@@ -1,0 +1,7 @@
+\tffalse
+
+While 0-1 loss does not generalize to all datasets, if we have a distribution 
+$$
+p(y \given x) = \begin{cases} 1 & y = 1\\ 0 & y = 0 \end{cases}
+$$
+then a classifier would only need to learn (from any sampled dataset of this distribution) to classify all inputs as $f(x) = \yh = 1$ which can be learned using 0-1 loss.

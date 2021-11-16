@@ -1,0 +1,16 @@
+% \newcommand{\odv}[2]{\frac{d #1}{d#2}}
+\newcommand{\odv}[3][1]{
+    \ifnum #1 =1
+        \frac{d #2}{d#3}
+    \else
+        \frac{d^{#1} #2}{d#3^{#1}}
+    \fi
+}
+
+\newcommand{\pdv}[3][1]{
+    \ifnum #1 = 1
+        \frac{\partial #2}{\partial#3}
+    \else
+        \frac{\partial^{#1} #2}{\partial#3^{#1}}
+    \fi
+}

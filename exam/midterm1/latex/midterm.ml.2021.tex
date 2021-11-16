@@ -1,0 +1,307 @@
+\documentclass[11pt]{article}
+
+\usepackage{comment}
+\usepackage{wrapfig}
+\usepackage{url}
+\usepackage{color}
+\usepackage{marvosym}
+\usepackage{enumerate}
+\usepackage{subfig}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{pgfplots}
+
+\usepackage{caption}
+\usepackage{graphicx}
+
+\oddsidemargin 0mm
+\evensidemargin 5mm
+\topmargin -20mm
+\textheight 240mm
+\textwidth 160mm
+
+
+\setlength{\parskip}{.5cm plus4mm minus3mm}
+
+\def\ci{\perp\!\!\!\perp}
+
+\newcommand{\vw}{{\bf w}}
+\newcommand{\vx}{{\bf x}}
+\newcommand{\vy}{{\bf y}}
+\newcommand{\vxi}{{\bf x}_i}
+\newcommand{\yi}{y_i}
+\newcommand{\vxj}{{\bf x}_j}
+\newcommand{\vxn}{{\bf x}_n}
+\newcommand{\yj}{y_j}
+\newcommand{\ai}{\alpha_i}
+\newcommand{\aj}{\alpha_j}
+\newcommand{\X}{{\bf X}}
+\newcommand{\Y}{{\bf Y}}
+\newcommand{\vz}{{\bf z}}
+\newcommand{\msigma}{{\bf \Sigma}}
+\newcommand{\vmu}{{\bf \mu}}
+\newcommand{\vmuk}{{\bf \mu}_k}
+\newcommand{\msigmak}{{\bf \Sigma}_k}
+\newcommand{\vmuj}{{\bf \mu}_j}
+\newcommand{\msigmaj}{{\bf \Sigma}_j}
+\newcommand{\pij}{\pi_j}
+\newcommand{\pik}{\pi_k}
+\newcommand{\D}{\mathcal{D}}
+\newcommand{\el}{\mathcal{L}}
+\newcommand{\N}{\mathcal{N}}
+\newcommand{\vxij}{{\bf x}_{ij}}
+\newcommand{\vt}{{\bf t}}
+\newcommand{\yh}{\hat{y}}
+\newcommand{\code}[1]{{\footnotesize \tt #1}}
+\newcommand{\alphai}{\alpha_i}
+%\newcommand{\ci}{\perp\!\!\!\perp}
+
+\include{commands/answerformat}
+\include{commands/calculus}
+\include{commands/probability}
+\include{commands/mathops}
+
+\newcounter{questionnumber}
+\stepcounter{questionnumber}
+
+\newcommand{\questionnumber}{\noindent \arabic{questionnumber}\stepcounter{questionnumber})~~}
+\newcommand{\truefalse}[1]{\questionnumber #1\\True~~~~~~~~False\\Explanation:\\\\ }%\vspace{3cm}}
+
+\pagestyle{myheadings}
+\markboth{}{Fall 2021 CS 475-675 Machine Learning: Midterm 1}
+
+
+\title{CS 475-675 Machine Learning: Midterm 1\\
+\Large{Fall 2021}\\
+150 points. }
+\author{}
+\date{}
+
+
+\begin{document}
+\large
+\maketitle
+\thispagestyle{headings}
+
+\vspace{-.5in}
+\noindent Name (print):
+\underline{\makebox[5in][l]{Dimitri Lezcano}} \\
+
+\noindent JHED:
+\underline{\makebox[5in][l]{dlezcan1}}
+
+
+ \vspace{3cm}
+ If you think a question is unclear or multiple answers are reasonable, please write a brief explanation of your answer,
+ to be safe. Also, show your work if you want wrong answers to have a chance at some credit: it lets us see how much you understood.
+
+ This exam is open-book: permitted materials include textbooks, personal notes, lecture material, recitation material, past assignments, the course Piazza, and scholarly articles and papers. Other materials are otherwise not permitted. It is not permitted to discuss or share questions or solutions of this exam with any person, via any form of communication, other than the course instructors.  It is not permitted to solicit or use any solutions to past exams for this course.
+ \vspace{1cm}
+
+ \textbf{ Declaration:}
+
+I have neither given nor received any unauthorized aid on this exam. In particular, I have not spoken to any other student about any part of this exam.
+The work contained herein is wholly my own.  I understand that violation of these rules, including using an unauthorized aid, copying from another person,
+or discussing this exam with another person in any way, may result in my receiving a 0 on this exam.
+\begin{center}
+\noindent\underline{\makebox[6in][l]{}}
+
+ Signature ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Date
+
+
+ \vspace{3cm}
+ Good luck!
+ \end{center}
+
+
+\newpage
+
+%\section*{Glossary}
+%
+%\begin{itemize}
+%
+%\item 
+%
+%\end{itemize}
+%
+%\newpage
+
+\section*{True/False (50 points)}
+
+For each question, circle (or otherwise clearly indicate) either True or False. If False, explain why.\\
+2 points for correct True/False answer, -2 points for incorrect True/False answer, 3 points for a correct explanation, 0 points for an incorrect explanation.\\
+
+\truefalse{
+Minimizing the exponential loss is a good way of creating a classifier robust to outliers.
+}
+\input{solutions/tf/1}
+
+\truefalse{Minimising the 0-1 loss on the training data can never achieve good out of sample prediction performance.}
+\input{solutions/tf/2}
+
+\truefalse{Naive Bayes is a linear classifier.}
+\input{solutions/tf/3}
+
+\newpage
+
+\truefalse{Decreasing the bias of a predictor must necessarily increase its variance.}
+\input{solutions/tf/4}
+
+\truefalse{$\mathbb{E}[\mathbb{E}[A \mid B]] = \mathbb{E}[A]$.}
+\input{solutions/tf/5}
+
+\truefalse{Rosenblatt's Perceptron algorithm can be modified to solve multiclass classification problems, provided any pair of classes is linearly separable.}
+\input{solutions/tf/6}
+
+\newpage
+
+\truefalse{Naive Bayes is a special case of a Markov random field.}
+\input{solutions/tf/7}
+
+\truefalse{If $A {\perp\!\!\!\perp} C$ then either $A {\perp\!\!\!\perp} B$ or $B {\perp\!\!\!\perp} C$.}
+\input{solutions/tf/8}
+
+\truefalse{A support vector machine applied to a linearly separable dataset must have at least $2$ support vectors.}
+\input{solutions/tf/9}
+
+\newpage
+
+\truefalse{Logistic regression is a special case of the projection pursuit model with $M=1$.}
+\input{solutions/tf/10}
+
+\pagebreak
+\section*{Multiple Part Questions (100 points)}
+
+\questionnumber {\bf Probability And Likelihood (25 points)}
+
+\begin{itemize}
+
+\item[(i)] Show that if $A \ci B \cup D \mid C$ then $A \ci D \mid C$.  You may want to use the fact that if $X \ci Y \mid Z$ then $p(X, Y \mid Z) = p(X \mid Z) p(Y \mid Z)$.
+
+\item[(ii)] Consider the following density function (for non-negative $x$): $f(x; \lambda) = \lambda \exp \left\{ - \lambda x \right\}$.  Derive the maximum likelihood estimate of its parameter $\lambda$.
+
+\item[(iii)] What function of $x$ does $\lambda$ correspond to?
+
+\item[(iv)] If, instead of solving for $\lambda$ in closed form, we instead opted to use stochastic gradient descent to update our guess $\lambda_{(t)}$ to obtain $\lambda_{(t+1)}$, using the $i$th row of data $x_i$, and a learning parameter $\rho$, what would our update be?
+
+\end{itemize}
+
+\input{solutions/problem11}
+
+\newpage
+
+\questionnumber {\bf Classification (25 points)}
+
+Consider the \emph{Slightly Less Naive Bayes} classifier on features $X_1, \ldots, X_k$ and outcome $Y$, defined by the following independence restrictions:
+\begin{align*}
+X_1 &\ci X_{3}, \ldots, X_{k} \mid X_{2},Y \\
+X_k &\ci X_{1}, \ldots, X_{k-2} \mid X_{k-1},Y \\
+X_i &\ci X_{1}, \ldots, X_{i-2}, X_{i+2}, \ldots, X_k \mid X_{i-1},X_{i+1},Y
+\end{align*}
+
+\begin{itemize}
+\item[(i)] Write down the joint likelihood ${\cal L}_{[D]} \equiv \prod_{i=1}^n p(\vec{x}_i, y_i)$ for this model.  You may want to think about the MRF factorization corresponding to the above independences.
+
+\item[(ii)] Write down the predictive model $p(Y \mid \vec{X})$ for this classifier.
+
+\item[(iii)] Write down the decision boundary for classes $Y_j$ and $Y_m$: $\log \frac{p(Y_j \mid \vec{X})}{p(Y_m \mid \vec{X})}$.  Is this a linear decision boundary in $\vec{X}$?
+
+\item[(iv)] Is the Naive Bayes model a submodel of the Slightly Less Naive Bayes model?  Recall that a model is a set of distributions (that satisfy some independence restrictions in this case), and a 
+submodel is a subset.  In other words, all distributions in a submodel (subset) are also in a supermodel (superset).  That is, elements of a submodel satisfy restrictions in a supermodel.
+
+Hint: think about the graphoid axioms, and how Naive Bayes independences compare to Slightly Less Naive Bayes independences.
+
+\end{itemize}
+
+\input{solutions/problem12}
+
+\newpage
+
+
+
+\questionnumber {\bf Neural Network Models (25 points)}
+
+Consider a neural network with $K$ inputs $\vec{X}$, and output $Y$.
+
+
+\begin{itemize}
+
+\item[(i)] Assume there are $M>10$ hidden layers with one node each.  The first hidden node $V_1$ uses the sigmoid activation function $\sigma(x) = 1/(1 + e^{-x})$ applied to a linear combination of $\vec{X}$ given by $\vec{\beta}_0^T \vec{X}$, all subsequent hidden nodes $V_m$ ($m = 2, \ldots, M$) use a sigmoid activation function applied to a weighted combination of the value of the previous hidden node $V_{m-1}$ and a bias term ($V_m = \text{sigmoid}(\beta_{m0} + \beta_{m1} V_{m-1})$), with the output $Y$ being given by $\text{sigmoid}(\beta_{M0} + \beta_{M1} V_M)$.
+
+Describe how the gradients with respect to $\vec{\beta}_0$ differ between layers. Justify your answer.
+Hint: calculate the derivative of $\sigma(x)$, and think about what will happen by chain rule of differentiation if a set of $\sigma(x)$ functions are composed.
+
+\item[(ii)] Now replace all $\sigma(x)$ activation functions in the model in (i) by ReLU activation functions. 
+
+How does the gradient of the output with respect to $\vec{\beta}_0$ compare with that same gradient in (i)?
+
+\item[(iii)] Assume there is a single hidden layer with $K$ nodes, each with a $ReLU(x)$ activation function, and each feature in $\vec{X}$ is connected to exactly one hidden node.  In other words, each hidden node $V_k$ ($k = 1, \ldots, K$) is equal to $ReLU(\beta_k X_k)$.  Furthermore, assume the output $Y$ is given by $\sigma(\vec{\beta}^T (V_1, \ldots, V_K))$.  Is this model equivalent to the logistic regression model?  Explain.
+
+\item[(iv)] As before, assume there is a single hidden layer with $K$ nodes, each with a $\sigma(x)$ activation function.  However, now each hidden node $V_k$ ($k = 1, \ldots, K$) is given by
+$\sigma()$ applied to a weighted combination of $\vec{X}$, where weights for each $V_k$ are \emph{shared}.  The outcome model is given by a weighted combination of $\vec{\alpha}^T (V_1, \ldots, V_K)$.  Is this model sufficiently general to be able to approximate the logistic regression model?  Explain.
+
+\end{itemize}
+
+\input{solutions/problem13}
+
+\newpage
+
+
+
+\questionnumber {\bf AdaBoost and Exponential Loss (25 points)}
+
+%\begin{itemize}
+%
+%\item[(i)]
+%
+%\end{itemize}
+
+Assume a one-dimensional dataset with $x = \langle -1, 0, 1 \rangle$ and $y =
+\langle -1, +1, -1 \rangle$.  Consider three weak classifiers:
+\begin{align*}
+  h_1(x) = \begin{cases}
+    1  & \text{if } x > \frac{1}{2} \\
+    -1 & \text{otherwise}
+  \end{cases},
+  \quad\quad
+  h_2(x) = \begin{cases}
+    1  & \text{if } x > - \frac{1}{2} \\
+    -1 & \text{otherwise}
+  \end{cases},
+  \quad\quad
+  h_3(x) = 1.
+\end{align*}
+
+\begin{enumerate}[(1)]
+  %\newsubquestion
+
+\item Show your work for the first $2$ iterations of \textsc{AdaBoost}.
+  In the table below, replace the ``?'' in the table below with the value of the
+  quantity at iteration $t$.
+  For the $\varepsilon_t$ column, put its error rate (remember to use the correct row weights).  
+  For the $h$ column, put the index of the weak learner with the best error rate at the current iteration.
+  For the $\alpha_t$ column, put the update parameter appropriately calculated from $\varepsilon_t$.
+  In addition, calculate the distribution over examples at the second iteration $D_{2}(1), D_{2}(2), D_{2}(3)$.
+  Use the natural logarithm in your calculations ($\log$ with base $e$).
+
+\begin{tabular}{c|ccc|ccc}
+$t$ & $h_t$ & $\alpha_t$ & $\varepsilon_t$ & $D_{t}(1)$ & $D_{t}(2)$ & $D_{t}(3)$ \\ \hline
+1 & ? & ? & $ ? $ & $ \frac{1}{3} $ & $ \frac{1}{3} $ & $ \frac{1}{3} $ \\
+2 & ? & ? & $ ? $ & $ ? $ & $ ? $ & $ ? $ \\
+\end{tabular}
+
+\item Without performing an explicit calculation, make an argument for what the classifier will be that AdaBoost outputs in this case after 100 iterations?  Explain.
+
+\item In general, getting near-perfect training accuracy in machine learning leads to overfitting. However, \textsc{AdaBoost} can get perfect training accuracy without overfitting. Give a brief justification for why that is the case.
+  
+\item The logistic regression likelihood (with outcome labels $y \in \{ 1, -1 \}$) is equal to $\prod_{i=1}^{n} \frac{1}{1 + \exp(- y_i \vec{\beta} \vec{x}_i)}$.  Show that maximizing the likelihood is equivalent to minimizing the exponential loss: $\sum_{i=1}^n \exp(- y_i f(\vec{x}_i))$ for some $f(.)$.
+
+\end{enumerate}
+
+\input{solutions/problem14}
+
+
+\end{document}
+

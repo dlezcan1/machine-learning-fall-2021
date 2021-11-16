@@ -1,0 +1,5 @@
+\tftrue 
+
+Naive Bayes assumes $X_i \ci X_1, \dots, X_{i-1}, X_{i+1}, \dots, X_k \given Y ~\forall i = 1, \dots, k$. Take a graphical model, $\mathcal{G}$ where $Y$ is the root node and $X_i$ are all children of $Y$. In other words $\mathcal{G} = (\mathcal{V}, \mathcal{E})$ where $\mathcal{V} = \{ X_1, \dots, X_k, Y \}$ are the vertices and $\mathcal{E} = \{ (X_i, Y) \given  i = 1, \dots, k \}$ are the pair-wise edges of $\mathcal{G}$. Therefore, the maximal cliques of this graph are all of size 2 and we have the independences, $X_i \ci X_1, \dots, X_{i-1}, X_{i+1}, \dots, X_k \given Y ~\forall i = 1, \dots, k$, the same independence as Naive Bayes. Therefore by Hammersley-Clifford theorem, Naive Bayes factorizes w.r.t $\mathcal{G} \iff$ Naive Bayes obeys the global and local markov properties $\iff$ Naive Bayes is an MRF. 
+
+% \emph{I think: Go through MRF properties}

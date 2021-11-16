@@ -1,0 +1,27 @@
+\newif\iftfanswer
+\newif\ifunanswered
+\newcommand{\answertruefalse}[1][\unansweredtrue]{
+\unansweredfalse
+#1
+\ifunanswered
+    \underline{Unanswered}
+\else
+    \iftfanswer
+        \textbf{True}
+    \else
+        \textbf{False}
+\fi
+}
+\newcommand{\answertruefalseN}[1][-1]{
+\ifnum#1<0
+    \underline{Unanswered}
+\else
+    \ifnum#1=0
+        \textbf{False}
+    \else
+        \textbf{True}
+    \fi
+\fi}
+\newcommand{\tftrue}{\answertruefalseN[1]}
+\newcommand{\tffalse}{\answertruefalseN[0]}
+\newcommand{\tfunanswered}{\answertruefalseN[-1]}

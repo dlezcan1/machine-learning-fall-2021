@@ -1,0 +1,8 @@
+\tftrue
+\begin{align*}
+    \expect{A} &= \sum_a a p(a)\\
+    \expect{\expect{A \given B}} &= \sum_b \sum_a a p(a \given b)\\
+        &= \sum_a \sum_b a p(a \given b) \because \text{summations commute}\\
+        &= \sum_a a \sum_b p(a \given b) \because a \perp b\\
+        &= \sum_a a p(a) = \expect{A}
+\end{align*}
