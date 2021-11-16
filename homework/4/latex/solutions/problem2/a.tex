@@ -13,6 +13,8 @@
         % &\left( \sum_{x_5=1}^{100} \left(\sum_{x_4=1}^{100}e^{x_4 x_5}\right) (x_5 + x_3 + x_6)^5\right)\left( \sum_{x_7=1}^{100} \left(\sum_{x_8=1}^{100}e^{x_7 x_8}\right) (x_7 + x_3 + x_6)^7\right)
 \end{align*}
     
-The number of terms are $100^2$ for the $x_3,x_6$ terms multiplied by $3*100^2$ for each pairing $(x_1,x_2),(x_4,x_5),(x_7,x_8)$. Together, this means there are $3*10^8 terms$. We're aware that this is greater than $10^7$ terms listed in the problem statement, but aren't sure how to further reduce the number of $x_3,x_6$ terms.
+The number of terms are $100^2$ for the $x_3,x_6$ terms multiplied by $3\times 100^2$ for each pairing $(x_1,x_2),(x_4,x_5),(x_7,x_8)$. Together, this means there are $3*10^8$ terms. We're aware that this is greater than $10^7$ terms listed in the problem statement, but aren't sure how to further reduce the number of $x_3,x_6$ terms.
+
+\underline{Edit:} Say we store all the terms in a look-up table. Then each of the exponential terms would evaluate $100^2 = 10^4$ evaluations of $h$ and the terms with $x_3, x_6$ would result in $100^3 = 10^6$ terms. Since we have 3 sets of these, that would result in a maximum number of evaluations of $h$ of $3 (10^4 + 10^6) < 10^7$.
      
     %  Computations are: $100^2(3\times 100^2) = 3\times100^4 = 3 \times 10^8$ \emph{(not $\leq 10^7$) / or is it $3 \times 100^2 + 100^2 = 4 \times 100^2 = 4 \times 10^4 < 10^6$?}.
