@@ -1,0 +1,5 @@
+\tffalse
+% \emph{I think maybe false, because it uses Y as a feature, which cannot be used to compute a centroid distance since there is a-whole-nother dimension that cannot be compared to. You could also have overlap in a feature $X$ and another cluster with a different outcome (data collision). Potentially true because it is a voting way among clusters, but this seems redundant because you are essentially performing $k$-means on data points anyways.}
+
+Consider the data ($X \in \mathbb{R}, Y$ binary): $\{ (-1,0), (-1/2, 0), (3/4, 1), (7/8,1) (1,1)\}$ with the clusters $(-3/4, 0), (7/8, 1)$. Then when looking at the new point $X_{new} = 0$, the closest three points would be $(-1/2, 0), (3/4,1), (7/8, 1)$, however, the closest cluster is $(-3/4,0)$, which would then perform voting on $(-1,0)$ and $(-1/2,0)$, not including a closer point $(3/4,1)$.
+

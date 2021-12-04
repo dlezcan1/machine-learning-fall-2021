@@ -1,0 +1,16 @@
+\newcommand{\Graph}{\mathcal{G}}
+\tftrue 
+
+Suppose that $\Graph_1 = (V, E_1)$ and $\Graph_2 = (V, E_2)$ are different undirected graphs. Then (WLOG) $\exists$ at least a single pair $v_1, v_2 \in V$ s.t. $(v_1, v_2) \in E_1 \cap E_2'$. Therefore, since the graphs are MRFs, we can write the distributions of each of these graphs as
+$$
+p_{\Graph_i}(\vec{v}) = \frac{1}{Z} \prod_{v \in V} \phi(v) \prod_{(v_j, v_k) \in E_i} \phi(v_j, v_k).
+$$
+
+Note that $p_{\Graph_1} \neq p_{\Graph_2} \iff \exists p_{\Graph_1}(\vec{v})/p_{\Graph_1}(\vec{v}) \neq 1 $. So consider $p_{\Graph_1}(\vec{v})/p_{\Graph_2}(\vec{v})$
+\begin{align*}
+    \frac{p_{\Graph_1}(\vec{v})}{p_{\Graph_2}(\vec{v})} &= \frac{\frac{1}{Z} \prod_{v \in V} \phi(v) \prod_{(v_j, v_k) \in E_1} \phi(v_j, v_k)}{\frac{1}{Z} \prod_{v \in V} \phi(v) \prod_{(v_j, v_k) \in E_2} \phi(v_j, v_k)}\\
+        &= \frac{\prod_{(v_j, v_k) \in E_1} \phi(v_j, v_k)}{\prod_{(v_j, v_k) \in E_2} \phi(v_j, v_k)}\\
+        &= \frac{\prod_{(v_j, v_k) \in E_1\cap E_2'} \phi(v_j, v_k)}{\prod_{(v_j, v_k) \in E_2\cap E_1'} \phi(v_j, v_k)} ~\text{which is at least}\\
+        &= \phi(v_1, v_2) \frac{\prod_{(v_j, v_k) \in E_1\cap E_2'\setminus(v_1, v_2)} \phi(v_j, v_k)}{\prod_{(v_j, v_k) \in E_2\cap E_1'\setminus(v_1, v_2)} \phi(v_j, v_k)} \neq 1 \because \phi(v_1, v_2) \neq 1 ~\text{generally}
+\end{align*}
+Therefore, two different MRFs results in distributions that are not equivalent. Furthermore, we have that in $\Graph_1$, ($v_1 \indep $ non-neighbors $\given v_2$ and other neighbors), but in $\Graph_2$, ($v_1 \indep$ non-neighbors $\given$ neighbors that don't include $v_2$). This results in a different independence which yields a different distribution.

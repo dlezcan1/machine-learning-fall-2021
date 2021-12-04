@@ -1,0 +1,8 @@
+Yes, since we have that the Bayes Risk is given by
+\begin{equation*}
+    R_b(\hat{f}) = \expect{1 - p(\hat{f}(\vec{X}) \given \vec{X})}
+\end{equation*}
+therefore, using $f(\vec{x}) = \argmax_y p(Y=y \given \vec{X} = \vec{x})$,
+\begin{equation*}
+    R_b(f) = \expect{1 - p(f(\vec{x}) \given \vec{x})} = \expect{1 - \max_{\hat{f}} p(\hat{f}(\vec{x} \given \vec{x})} = \min_{\hat{f}} \expect{1 - p(\hat{f}(\vec{x} \given \vec{x})} 
+\end{equation*}

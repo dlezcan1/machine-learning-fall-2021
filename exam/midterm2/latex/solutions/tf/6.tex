@@ -1,0 +1,7 @@
+\tftrue 
+% \emph{- I think}
+\begin{align*}
+    p(Y^{(1)} \given \vec{X}) &= p(Y^{(1)} \given \vec{X}, R_Y = 1) ~\because Y^{(1)} \indep R_Y \given \vec{X}\\
+        &= p(Y \given \vec{X}, R_Y = 1) \because R_Y = 1 \implies Y = Y^{(1)} 
+\end{align*}
+Therefore, $p(Y^{(1)} \given \vec{X})$ is a function of $p(Y \given \vec{X}, R_Y) \implies \expect{Y^{(1)} \given \vec{X}}$ is a function of $p(Y \given \vec{X}, R_Y)$.

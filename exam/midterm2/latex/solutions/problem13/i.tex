@@ -1,0 +1,10 @@
+This model is not MCAR, since $R_i$ and $X_i^{(1)}$ both depend on $Y$ for $i = 1,2$.
+Considering MAR, due to symmetry of the independence assumptions, showing that $X_1$ is MAR, this would imply $X_2$ is MAR, as well as if $X_1$ is not MAR. So consider $p(R_1 \given X_1^{(1)}, X_2^{(1)}, Y)$. 
+\begin{align*}
+    p(R_1 \given X_1^{(1)}, X_2^{(1)}, Y) 
+        &= p(R_1 \given X_2^{(1)}, Y) ~\because R_1 \indep X_1^{(1)} \given Y, X_2^{(1)}\\
+        &= p(R_1 \given X_2^{(1)}, Y, R_2 = 1) ~\because R_1 \indep R_2 \given X_2^{(1)}, Y\\
+        &= p(R_1 \given X_2, Y, R_2 = 1)
+\end{align*}
+which is not a MAR distribution, therefore $X_1$ (and $X_2$) is not MAR. 
+\textbf{Thus, the model is MNAR.} 

@@ -1,0 +1,401 @@
+\documentclass[11pt]{article}
+
+\usepackage{comment}
+\usepackage{wrapfig}
+\usepackage{url}
+\usepackage{color}
+\usepackage{marvosym}
+\usepackage{enumerate}
+\usepackage{subfig}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{pgfplots}
+
+\usepackage{caption}
+\usepackage{graphicx}
+
+\oddsidemargin 0mm
+\evensidemargin 5mm
+\topmargin -20mm
+\textheight 240mm
+\textwidth 160mm
+
+
+\setlength{\parskip}{.5cm plus4mm minus3mm}
+
+\def\ci{\perp\!\!\!\perp}
+
+\newcommand{\vw}{{\bf w}}
+\newcommand{\vx}{{\bf x}}
+\newcommand{\vy}{{\bf y}}
+\newcommand{\vxi}{{\bf x}_i}
+\newcommand{\yi}{y_i}
+\newcommand{\vxj}{{\bf x}_j}
+\newcommand{\vxn}{{\bf x}_n}
+\newcommand{\yj}{y_j}
+\newcommand{\ai}{\alpha_i}
+\newcommand{\aj}{\alpha_j}
+\newcommand{\X}{{\bf X}}
+\newcommand{\Y}{{\bf Y}}
+\newcommand{\vz}{{\bf z}}
+\newcommand{\msigma}{{\bf \Sigma}}
+\newcommand{\vmu}{{\bf \mu}}
+\newcommand{\vmuk}{{\bf \mu}_k}
+\newcommand{\msigmak}{{\bf \Sigma}_k}
+\newcommand{\vmuj}{{\bf \mu}_j}
+\newcommand{\msigmaj}{{\bf \Sigma}_j}
+\newcommand{\pij}{\pi_j}
+\newcommand{\pik}{\pi_k}
+\newcommand{\D}{\mathcal{D}}
+\newcommand{\el}{\mathcal{L}}
+\newcommand{\N}{\mathcal{N}}
+\newcommand{\vxij}{{\bf x}_{ij}}
+\newcommand{\vt}{{\bf t}}
+\newcommand{\yh}{\hat{y}}
+\newcommand{\code}[1]{{\footnotesize \tt #1}}
+\newcommand{\alphai}{\alpha_i}
+
+% custom imports
+\include{commands/answerformat}
+\include{commands/calculus}
+\include{commands/probability}
+\include{commands/mathops}
+
+\newcounter{questionnumber}
+\stepcounter{questionnumber}
+
+\newcommand{\questionnumber}{\noindent \arabic{questionnumber}\stepcounter{questionnumber})~~}
+\newcommand{\truefalse}[1]{\questionnumber #1\\True~~~~~~~~False\\Explanation:\\ }
+
+\pagestyle{myheadings}
+\markboth{}{Fall 2021 CS 475-675 Machine Learning: Midterm 2}
+
+
+\title{CS 475-675 Machine Learning: Midterm 2\\
+\Large{Fall 2021}\\
+150 points. }
+\author{}
+\date{}
+
+
+\begin{document}
+\large
+\maketitle
+\thispagestyle{headings}
+
+\vspace{-.5in}
+\noindent Name (print):
+\underline{\makebox[5in][l]{Dimitri Lezcano}} \\
+
+\noindent JHED:
+\underline{\makebox[5in][l]{dlezcan1}}
+
+
+ \vspace{3cm}
+ If you think a question is unclear or multiple answers are reasonable, please write a brief explanation of your answer,
+ to be safe. Also, show your work if you want wrong answers to have a chance at some credit: it lets us see how much you understood.
+
+ This exam is open-book: permitted materials include textbooks, personal notes, lecture material, recitation material, past assignments, the course Piazza, and scholarly articles and papers. Other materials are otherwise not permitted. It is not permitted to discuss or share questions or solutions of this exam with any person, via any form of communication, other than the course instructors.  It is not permitted to solicit or use any solutions to past exams for this course.
+ \vspace{1cm}
+
+ \textbf{ Declaration:}
+
+I have neither given nor received any unauthorized aid on this exam. In particular, I have not spoken to any other student about any part of this exam.
+The work contained herein is wholly my own.  I understand that violation of these rules, including using an unauthorized aid, copying from another person,
+or discussing this exam with another person in any way, may result in my receiving a 0 on this exam.
+\begin{center}
+\noindent\underline{\makebox[6in][l]{}}
+
+ Signature ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Date
+
+
+ \vspace{3cm}
+ Good luck!
+ \end{center}
+
+\newpage
+
+\section*{True/False (50 points)}
+For each question, circle (or otherwise clearly indicate) either True or False.  Regardless of which answer you chose, explain why.\\
+2 points for correct True/False answer, -2 points for incorrect True/False answer, 3 points for a correct explanation, 0 points for an incorrect explanation.\\
+
+\truefalse{
+Computing single variable marginals in a DAG model is always possible by treating it as a Markov random field model.
+}
+\input{solutions/tf/1}
+
+\vspace{0.5cm}
+
+\truefalse{A DAG model is always observationally equivalent to a Markov random field model.}
+\input{solutions/tf/2}
+
+\vspace{0.5cm}
+% \newpage
+
+\truefalse{Consider the following predictor trained from a dataset $[D]$ with features $\vec{X}$ and outcomes $Y$.  First, a $k$-means clustering algorithm is
+trained using $k$ clusters, and treatment both $\vec{X}$ and $Y$ as ``features'' when computing the centroid distance.  Second, when a new data point
+$\vec{X}_{\text{new}}$ is to be classifier, the predictor finds the closest of the $k$ centroids, and takes the majority vote among outcomes $Y$ in all points in that centroid.
+This predictor is an example of a $k$-nearest neighbor algorithm.}
+\input{solutions/tf/3}
+
+\vspace{0.5cm}
+
+\truefalse{The GES Algorithm will always run in polynomial time in the size of the graph $k$ and the size of the data $n$.}
+\input{solutions/tf/4}
+
+\newpage
+
+\truefalse{Two different undirected graphs (on the same set of vertices) correspond to different Markov random field models.}
+\input{solutions/tf/5}
+
+\vspace{0.5cm}
+
+\truefalse{$\mathbb{E}[Y^{(1)} \mid \vec{X}]$ is a function of the observed data distribution $p(Y,X,R_Y)$ if $Y$ is MAR given $\vec{X}$.
+}
+\input{solutions/tf/6}
+
+\newpage
+
+\truefalse{LDA can be used as a clustering algorithm.}
+\input{solutions/tf/7}
+
+\vspace{0.5cm}
+
+\truefalse{Value iteration will always converge to the true \emph{value function} in a finite number of steps.}
+\input{solutions/tf/8}
+
+\newpage
+
+\truefalse{The Newton-Raphson algorithm is a special case of gradient descent.}
+\input{solutions/tf/9}
+
+\vspace{0.5cm}
+
+\truefalse{Super learner will do better than any single predictor in its library, as sample size goes to infinity.}
+\input{solutions/tf/10}
+
+\vspace{0.5cm}
+
+\pagebreak
+
+\section*{Multiple Part Questions (100 points).}
+
+\questionnumber {\bf Message Passing (25 points)}
+Consider the DAG below.
+\vspace{-0.5cm}
+\begin{center}
+\begin{tikzpicture}[>=stealth, node distance=1.2cm]
+    \tikzstyle{format} = [draw, very thick, circle, minimum size=5.0mm,
+	inner sep=0pt]
+
+	\begin{scope}
+		\path[->, very thick]
+			node[format] (A1) {$A_1$}
+			node[format, above right of=A1] (B1) {$B_1$}
+			node[format, above left of=B1] (C1) {$C_1$}
+			
+			node[format, below right of=B1] (A2) {$A_2$}
+			
+			node[format, above right of=A2] (B2) {$B_2$}
+			node[format, above left of=B2] (C2) {$C_2$}
+
+			node[below right of=B2] (d1) {$\ldots$}
+			node[above right of=d1] (d2) {$\ldots$}
+			node[above left of=d2] (d3) {$\ldots$}
+
+			node[format, below right of=d2] (Ak) {$A_k$}
+			node[format, above right of=Ak] (Bk) {$B_k$}
+			node[format, above left of=Bk] (Ck) {$C_k$}
+
+			(Ck) edge[blue] (Bk)
+			(Ak) edge[blue] (Bk)
+			
+			(d1) edge[blue] (Ak)
+			(d3) edge[blue] (Ck)
+
+			(C2) edge[blue] (d3)
+			(A2) edge[blue] (d1)
+
+			(A1) edge[blue] (B1)
+
+			(A2) edge[blue] (B2)
+
+			(C1) edge[blue] (B1)
+			
+			(A1) edge[blue] (A2)
+			(C1) edge[blue] (C2)
+			(C2) edge[blue] (B2)
+		;
+	\end{scope}
+\end{tikzpicture}
+\end{center}
+\vspace{-0.5cm}
+
+\begin{itemize}
+
+\item[(i)] What is the moralized and triangulated undirected graph corresponding to this DAG?  Since the DAG has repeating structure, feel free to only draw the first few "slices" of the graph.
+
+\inputsolution{solutions/problem11/i}
+
+\vspace{0.5cm}
+
+\item[(ii)] Construct a clique tree from the graph in (i).  Again, since the clique tree has repeating structure, feel free to only draw enough of it so it's clear what the repeated structure is.
+
+\inputsolution{solutions/problem11/ii}
+
+\vspace{0.5cm}
+
+\pagebreak
+
+\item[(iii)] Do you expect message passing applied to the graph in (i) to run in polynomial time in $k$?  Explain.
+
+\inputsolution{solutions/problem11/iii}
+
+\vspace{0.5cm}
+
+\end{itemize}
+
+\newpage
+
+\questionnumber {\bf Reinforcement Learning (25 points)}
+
+Consider a reinforcement learning problem with states $s_0, s_1$, and two actions $a_0,a_1$.
+We know the following:
+{\small
+\begin{align*}
+p(s^{(t+1)} = s_1 \mid s^{(t)} = s_0, a_0) = 0.1; \hspace{0.2cm} p(s^{(t+1)} = s_1 \mid s^{(t)} = s_0, a_1) = 0.7\\
+p(s^{(t+1)} = s_0 \mid s^{(t)} = s_1, a_1) = 0.8; \hspace{0.2cm} p(s^{(t+1)} = s_0 \mid s^{(t)} = s_1, a_0) = 0.2\\
+R_{a_0}(s_0, s_1) = 1; \hspace{0.2cm} R_{a_1}(s_0, s_1) = -1, R = 0\text{ for all other state transitions and actions.}
+\end{align*}
+}
+and let the discount factor be $\gamma = 0.5$.
+
+\begin{itemize}
+\item[(i)] What is $V^{(1)}(s_0)$ and $V^{(1)}(s_1)$ (value functions for states $s_0,s_1$ after a single loop of the value iteration algorithm)?  Show your work!
+
+\inputsolution{solutions/problem12/i}
+
+\vspace{0.5cm}
+
+\item[(ii)] Without performing an explicit calculation, what do you think is the optimal policy for this problem?  Explain.
+
+\inputsolution{solutions/problem12/ii}
+
+\vspace{0.5cm}
+
+\pagebreak
+
+\item[(iii)] Assume that we did not know the transition probabilities in the above Markov chain.  Suggest a modification to value iteration that would be able to handle
+this case, while still converging to the value function at every state.
+
+\inputsolution{solutions/problem12/iii}
+
+\vspace{0.5cm}
+
+\item[(iv)] Assume rewards were not fixed, but drawn from distributions:
+$R_{a_0}(s_0, s_1)\sim f_1(a_0,s_0,s_1)$ and $R_{a_1}(s_0, s_1) \sim f_2(a_1,s_0,s_1)$.  Suggest a modification to value iteration that would be able to handle
+this case, while still converging to the value function $V^*(s)$ at every state $s$, where the value function is now defined as
+{\small
+\begin{align*}
+V^*(s) = \mathbb{E}[ R_{a = \pi^*(s)}(s, s^{(1)})] + \gamma \mathbb{E}[ V^*(s^{(1)}) ],
+\end{align*}
+}
+where the expectation is taken both with respect to the state transition probabilities, and $f_1$ and $f_2$.
+
+\inputsolution{solutions/problem12/iv}
+
+\vspace{0.5cm}
+
+\end{itemize}
+
+\newpage
+
+\questionnumber {\bf Prediction With Missing Features (25 points)}
+
+Assume we want to learn parameters $\beta$ of a regression problem $\mathbb{E}[Y \mid \vec{X}^{(1)}]$  we wish to solve, such that $\vec{X}^{(1)} = \{ X^{(1)}_1, X^{(1)}_2 \}$ is a pair of real-valued features, where either feature could be missing in our data.  Recall that in missing data problems, $X_i = X^{(1)}_i$ if $R_i = 1$, and $X_i = ?$ otherwise.
+
+Assume that
+{\small
+\begin{align*}
+R_1 \ci R_2, X^{(1)}_1 \mid Y,X^{(1)}_2; \hspace{0.2cm}
+R_2 \ci R_1, X^{(1)}_2 \mid Y,X^{(1)}_1.
+\end{align*}
+}
+
+\begin{itemize}
+
+\item[(i)] Is the model MCAR, MAR or MNAR?  Explain.
+
+\inputsolution{solutions/problem13/i}
+
+\vspace{0.5cm}
+
+\item[(ii)] Use these assumptions, and the graphoid axioms to show that
+$p(r_1, r_2 \mid x_{1}^{(1)}, x_{2}^{(1)}, y)$ is a function of the observed data distribution $p(y,x_1,x_2,r_1,r_2)$.
+
+\inputsolution{solutions/problem13/ii}
+
+\vspace{0.5cm}
+
+\pagebreak
+
+\item[(iii)] Noting that $p(y, x^{(1)}_1, x^{(1)}_2) = \frac{ p(y, x_1, x_2, r_1 = 1, r_2 = 1) }{ p(r_1 = 1,r_2 = 1 \mid x_1^{(1)},x_2^{(1)}, y)}$, show that
+$p(y, x^{(1)}_1, x^{(1)}_2)$ is a function of the observed data distribution $p(y,x_1,x_2,r_1,r_2)$.
+
+\inputsolution{solutions/problem13/iii}
+
+\vspace{0.5cm}
+
+\end{itemize}
+
+\newpage
+
+\questionnumber {\bf The Noisy-OR Classifier (25 points)}
+
+\begin{itemize}
+
+\item[(i)] Given a set of binary features $\vec{X} = \{ X_1, \ldots, X_k \}$ a \emph{noisy-or} model for the outcome $Y$ has the form
+{\small
+\begin{align*}
+p(Y = 0 \mid x_1, \ldots, x_k) = p(Y = 0 \mid \tilde{x}_1, \ldots, \tilde{x}_k) \prod_{i=1}^k p(\tilde{x}_i \mid x_i),
+\end{align*}
+}
+where $p(Y = 0 \mid \tilde{x}_1 = 0, \ldots, \tilde{x}_k = 0) = 1$ ($Y = 0$ with probability 1 if all $\tilde{x}_i$ are zero), and $p(Y = 1 \mid \tilde{x}_1, \ldots, \tilde{x}_k) = 1$ otherwise.
+Here, every $\tilde{x}_i$ is a hidden variable, and the model is parameterized by probabilities $p(\tilde{x}_i = 0 \mid x_i = 1)$ and $p(\tilde{x}_i = 0 \mid x_i = 0)$, since:
+{\small
+\begin{align*}
+p(Y = 0 \mid x_1, \ldots, x_k) &= \prod_{i=1}^k p(\tilde{x}_i = 0 \mid x_i),\\
+p(Y = 1 \mid x_1, \ldots, x_k) &= 1 - \prod_{i=1}^k p(\tilde{x}_i = 0 \mid x_i),\\
+\end{align*}
+}
+Write down the conditional likelihood function for this model.
+
+\inputsolution{solutions/problem14/i}
+
+\vspace{0.5cm}
+
+\item[(ii)] Can this conditional likelihood be maximized in closed form?  If so, explain how.  If not, suggest an iterative procedure for maximizing it.
+
+\inputsolution{solutions/problem14/ii}
+
+\pagebreak
+
+\item[(iii)] Assume any $X_i$ may be missing completely at random, and $Y$ is always observed.  Is it appropriate to maximize the conditional log likelihood using only rows where all variables are observed?  Explain.
+
+\inputsolution{solutions/problem14/iii}
+
+\vspace{0.5cm}
+
+\item[(iv)] Assume the noisy-or model is the true model of the conditional density for $p(Y \mid \vec{X})$ obtained from the observed data distribution for our dataset $[D]$.
+Will the classifier $\arg\max_y p(Y = y \mid X_1 = x_1, \ldots, X_k = x_k)$ minimize the Bayes risk?  Explain.
+
+\inputsolution{solutions/problem14/iv}
+
+\vspace{0.5cm}
+
+\end{itemize}
+
+\end{document}
+

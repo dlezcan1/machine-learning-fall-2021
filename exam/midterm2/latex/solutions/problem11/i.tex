@@ -1,0 +1,70 @@
+\begin{center}
+\begin{tikzpicture}[>=stealth, node distance=1.2cm]
+    \tikzstyle{format} = [draw, very thick, circle, minimum size=5.0mm,
+	inner sep=0pt]
+
+	\begin{scope}
+		\path[-, very thick]
+			node[format] (A1) {$A_1$}
+			node[format, above right of=A1] (B1) {$B_1$}
+			node[format, above left of=B1] (C1) {$C_1$}
+			
+			node[format, below right of=B1] (A2) {$A_2$}
+			
+			node[format, above right of=A2] (B2) {$B_2$}
+			node[format, above left of=B2] (C2) {$C_2$}
+
+			node[below right of=B2] (d1) {$\ldots$}
+			node[above right of=d1] (d2) {$\ldots$}
+			node[above left of=d2] (d3) {$\ldots$}
+
+			node[format, below right of=d2] (Ak) {$A_k$}
+			node[format, above right of=Ak] (Bk) {$B_k$}
+			node[format, above left of=Bk] (Ck) {$C_k$}
+
+			(Ck) edge[blue] (Bk)
+			(Ak) edge[blue] (Bk)
+			(Ak) edge[red] (Ck)
+			
+			(d1) edge[blue] (Ak)
+			(d3) edge[blue] (Ck)
+
+			(C2) edge[blue] (d3)
+			(A2) edge[blue] (d1)
+			
+			(A2) edge[blue] (B2)
+			(A2) edge[red] (C2)
+			
+            (A1) edge[blue] (B1)
+			(C1) edge[blue] (B1)
+			(A1) edge[red] (C1)
+			
+			(A1) edge[blue] (A2)
+			(C1) edge[blue] (C2)
+			(C2) edge[blue] (B2)
+
+            % triangulation			
+			(C1) edge[green, bend left=30] (A2)
+			(C2) edge[green, bend left=30] (d1)
+			(d3) edge[green, bend left=30] (Ak)
+			
+			(B1) edge[green] (A2)
+			(B1) edge[green] (C2)
+			
+			(B2) edge[green] (d3)
+			(B2) edge[green] (d1)
+			
+			(d2) edge[green] (Ak)
+			(d2) edge[green] (Ck)
+		;
+	\end{scope}
+\end{tikzpicture}
+\end{center}
+
+Cliques:
+\begin{itemize}
+    \item $(A_i, B_i, C_i, A_{i+1}), \forall i = 1, \dots, k-1$
+    \item $(B_i, C_i, A_{i+1}, C_{i+1}), \forall i = 1, \dots, k-1$
+    \item $(A_k, B_k, C_k)$
+\end{itemize}
+

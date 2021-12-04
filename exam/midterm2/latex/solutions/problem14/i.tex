@@ -1,0 +1,5 @@
+\begin{align*}
+    \el &= \prod_i p(Y_i \given \vxi)\\
+        &= \prod_i p(Y_i = 0 \given \vxi)^{(1 - Y_i)} p(Y_i = 1 \given \vxi )^{Y_i}\\
+        &= \prod_i  \left(\prod_{j=1}^k p(\Tilde{x}_{ij} = 0 \given x_{ij})\right)^{(1 - Y_i)} \left(1 - \prod_{j=1}^k  p(\Tilde{x}_{ij} = 0 \given x_{ij}) \right)^{Y_i}
+\end{align*}

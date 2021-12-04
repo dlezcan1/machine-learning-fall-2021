@@ -1,0 +1,8 @@
+\newcommand{\und}{^{(1)}}
+Using (ii),
+\begin{align*}
+    p(y, x_1\und, x_2\und)
+        &= \frac{p(y, x_1, x_2, r_1=1, r_2=1)}{p(r_1=1, r_2=1 \given x_1\und, x_2\und, y)}\\
+            &= \frac{p(y, x_1, x_2, r_1=1, r_2=1)}{p(r_1=1 \given x_1, x_2, r_2=1, y)p(r_2=1 \given x_1, x_2, r_1=1, y)} ~\because ~\text{(ii)}\\
+            &= g(p(y, x_1, x_2, r_1, r_2)) ~~~\blacksquare
+\end{align*}

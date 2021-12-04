@@ -1,0 +1,5 @@
+\tffalse
+% \emph{- Look at independence counter example (collider?), true if we just construct an MRF that contains the Local Markov Property of DAG.}
+
+Consider $A \rightarrow B \leftarrow C$. 
+Here, in the DAG, we have that $A \indep C$ and $A \not\indep C \given B$. $A \indep C$ means that $A$ and $C$ cannot be adjacent in the MRF. We also have that $A \not\indep B$ and $B \not\indep C$, therefore, we must have an edge connecting $A-B$ and $B-C$ in the MRF. However, given this model, we have that $A \indep C \given B$. Therefore, the distribution is not equivalent. The only other edge we could add to "fix" the MRF to match the DAG is an edge between $A-C$, however, this would violate $A \indep C$ in the MRF, therefore this DAG cannot be modeled as an MRF exactly without loosening assumptions and therefore cannot be observationally equivalent to an MRF.

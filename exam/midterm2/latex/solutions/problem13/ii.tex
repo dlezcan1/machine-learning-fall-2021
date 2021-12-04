@@ -1,0 +1,18 @@
+Weak union over assumption \#1 implies 
+$$
+R_1 \indep R_2 \given X_1^{(1)}, X_2^{(1)}, Y
+$$
+So looking at the presented distribution:
+\begin{align*}
+    p(r_1, r_2 \given x_1^{(1)}, x_2^{(1)}, y) 
+        &= p(r_1 \given x_1^{(1)}, x_2^{(1)}, y) p(r_2 \given x_1^{(1)}, x_2^{(1)}, y) ~\because R_1 \indep R_2 \given X_1^{(1)}, X_2^{(1)}, Y\\
+        &= p(r_1 \given x_1, x_2^{(1)}, y) p(r_2 \given x_1^{(1)}, x_2, y) ~\because R_i \indep X_i^{(1)} \given Y, X_j^{(i)}\\\\
+    p(r_1 \given x_1, x_2^{(1)}, y) 
+        &= p(r_1 \given x_1, x_2^{(1)}, y, r_2 = 1) ~\because R_2 \indep R_1 \given X_2^{(1)}, Y\\
+        &= p(r_1 \given x_1, x_2, r_2=1, y) ~\because ~\text{def'n of } R_2\,\& X_2^{(1)}\\\\
+    \implies
+    p(r_1, r_2 \given x_1^{(1)}, x_2^{(1)}, y)
+        &= p(r_1 \given x_1, x_2^{(1)}, y) p(r_2 \given x_1^{(1)}, x_2, y)\\
+        &= p(r_1 \given x_1, x_2, r_2=1, y) p(r_2 \given x_1, x_2, r_1=1, y)\\
+        &= f(p(y, x_1, x_2, r_1, r_2)) ~~~\blacksquare
+\end{align*}

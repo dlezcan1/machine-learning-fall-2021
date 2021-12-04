@@ -1,0 +1,8 @@
+We are able to use Q learning in order to modify value iteration. First, we initialize $\hat{Q}(s,a) = 0, \forall s = s_0, s_1, \forall a = a_0, a_i$.
+Then, starting at some current state, we iteratively pick some action and update the current state and calculate a reward for the transition that occurs. In the background, we also hold a state counter that calculates the number of times that the state-action pair was visited as we continue to iterate until some convergence. 
+We then update $\hat{Q}$ by
+\begin{equation*}
+    \hat{Q}(s, a) \leftarrow (1 - \alpha) \hat{Q}(s,a) + \alpha \left( R_a(s, s') + \gamma \max_{\Tilde{a}} \hat{Q}(s', \Tilde{A}) \right)
+\end{equation*}
+where $\alpha = 1/(1 + \text{ number of times } (s,a) \text{ was visited})$, and $s'$ is the new/updated state. 
+Then, after determining the new $\hat{Q}$, use $\hat{Q}(s,a)$ to update the value function by taking $\hat{V}(s) \leftarrow \max_a \hat{Q}(s,a)$. Since we know by Q learning, $\hat{Q}$ converges to $Q$ which implies that $\hat{V}$ converges to $V$ because of value iteration convergence.

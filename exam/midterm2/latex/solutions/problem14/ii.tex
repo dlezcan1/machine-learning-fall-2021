@@ -1,0 +1,15 @@
+Start by taking the $\log$ of $\el$.
+\begin{align*}
+    \log\el &=
+        \sum_i (1 - Y_i) \log\left(\prod_{j=1}^k p(\Tilde{x}_{ij} =0 \given x_{ij}) \right) + Y_i \log\left( 1 - \prod_{j=1}^k p(\Tilde{x}_{ij} =0 \given x_{ij}) \right)\\
+        &= \sum_i (1 - Y_i) \sum_{j=1}^k \left(\log p(\Tilde{x}_{ij} = 0 \given x_{ij})\right) + Y_i \log\left( 1 - \prod_{j=1}^k p(\Tilde{x}_{ij} =0 \given x_{ij}) \right)\\
+\end{align*}
+Now consider taking a derivative $\pdv{\log\el}{p(\Tilde{x}_{l} =0 \given x_{l})}$.
+\begin{gather*}
+    \pdv{\log\el}{p(\Tilde{x}_{l} =0 \given x_{l})} = 0 \iff\\
+    0 = \sum_i \mathbb{I}(x_{il}=x_l)\left((1 - Y_i) \frac{1}{ p(\Tilde{x}_{l} =0 \given x_{l})} - Y_i \frac{\prod_{j \neq l} p(\Tilde{x}_{ij} =0 \given x_{ij})}{1  - \prod_{j=1}^k p(\Tilde{x}_{ij} =0 \given x_{ij})} \right)\\
+    0 = \sum_i \mathbb{I}(x_{il}=x_l) \left( (1 - Y_i) \frac{1}{p(\Tilde{x}_l = 0 \given x_l)} - Y_i \frac{p(Y = 0 \given \vec{x}_i)}{p(\Tilde{x}_l = 0 \given x_l) p(Y_i = 1 \given \vec{x}_i)}  \right) \iff\\
+    0 = \frac{1}{p(\Tilde{x}_l = 0 \given x_l)} \sum_i \left(1 - Y_i - Y_i \frac{p(Y_i = 0 \given \vec{x}_i)}{p(Y_i = 1 \given \vec{x}_i)} \right)\mathbb{I}(x_{il} = x_l) \iff\\
+    1 - P(Y_i = 0 \given \vec{x}_i) = P(Y_i = 1 \given \vec{x}_i) = Y_i ~\text{s.t.}~x_{il} = x_l
+\end{gather*}
+Which does not have a closed form solution for a single parameter. However, EM could be used to update $p(\Tilde{x}_l = 0 \given x_l)$ iteratively or gradient ascent using the above gradient.

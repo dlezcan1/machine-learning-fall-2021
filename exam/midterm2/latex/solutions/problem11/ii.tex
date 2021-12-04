@@ -1,0 +1,26 @@
+\begin{center}
+\begin{tikzpicture}[>=stealth, node distance=4.0cm]
+    \tikzstyle{format} = [draw, very thick, circle, minimum size=30.0mm,
+	inner sep=0pt]
+
+	\begin{scope}
+		\path[-, very thick]
+			node[format] (ABC1A2) {$A_1, B_1, C_1, A_2$}
+            node[format, above of=ABC1A2] (BC1AC2) {$B_1, C_1, A_2, C_2$}
+            
+            node[format, right of=ABC1A2] (ABC2A3) {$A_2, B_2, C_2, A_3$}
+			node[format, above of=ABC2A3] (BC2AC3) {$B_2, C_2, A_3, C_3$}
+			
+			node[below right of=BC2AC3] (dots) {$\ldots$}
+			node[format, right of=dots] (ABCk) {$A_k, B_k, C_k$}
+			
+			% edges
+			(ABC1A2) edge[blue] (BC1AC2)
+			(BC1AC2) edge[blue] (ABC2A3)
+			(ABC2A3) edge[blue] (BC2AC3)
+			(BC2AC3) edge[blue] (dots)
+			(dots)   edge[blue] (ABCk)
+		;
+	\end{scope}
+\end{tikzpicture}
+\end{center}
